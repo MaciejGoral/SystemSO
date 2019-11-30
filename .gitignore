@@ -3,3 +3,8 @@
 ################################################################################
 
 /.vs
+/SystemSO/.vs
+/SystemSO/SystemSO/x64
+/SystemSO/SystemSO/Debug
+/SystemSO/Interpreter/x64
+/SystemSO/Interpreter/Debug

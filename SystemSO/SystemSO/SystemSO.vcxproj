@@ -25,6 +25,11 @@
     <ClCompile Include="Shell.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Interpreter\Interpreter.vcxproj">
+      <Project>{4b376025-5994-403e-8673-56a1d794f569}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{07BF3DEA-A8D0-41EE-89F4-71291B9E3627}</ProjectGuid>

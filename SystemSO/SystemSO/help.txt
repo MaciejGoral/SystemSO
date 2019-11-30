@@ -1,0 +1,19 @@
+CP <nazwa_procesu> <nazwa_pliku>			utworzenie procesu
+DP <nazwa_procesu>					usuwanie procesu
+EXE							wykonanie kolejnego rozkazu procesu
+SP <nazwa_procesu>					wyswietla parametry procesu
+DAP							wyswietla wszystkie procesy
+DWP							wyswietla oczekujace procesy
+DRP							wyswietla gotowe procesy
+SR							wyswietla zawartosci calej pamieci RAM
+SRR <adres_poczatkowy> <rozmiar>			wyswietla pamiec RAM od wskazanego adresu o wskazanej wielkosci
+LD							metoda wyswietlajaca zawartosc
+CF <nazwa_pliku>					tworzy plik
+DF <nazwa_pliku> 					usuwa plik
+RF <nazwa_pliku> <nowa_nazwa>				zmiana nazwy pliku
+AP <nazwa> <dane>					dopisywanie do pliku
+OF <nazwa> <dane>					nadpisywanie pliku
+RDF <nazwa>						wyswietlanie zawartosci pliku
+RDFF <nazwa> <pozycja_poczatkowa> <int ilosc_znakow> 	wyswietlanie czesci zawartosci pliku
+EXIT							zamkniecie systemu
+HELP							wyswietlenie dostepnych komend

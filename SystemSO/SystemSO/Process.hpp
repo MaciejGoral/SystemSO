@@ -24,7 +24,7 @@ private:
 	processState state;
 	std::string processName;
 	std::string fileName;
-	char AX, BX, CX, DX;
+	char AX, BX, CX, DX, Flag;
 
 public:
 	PCB();
@@ -83,15 +83,17 @@ public:
 		return memory[adrr];
 	}
 
-	char getAX() { return memory[0]; }
-	char getBX() { return memory[1]; }
-	char getCX() { return memory[2]; }
-	char getDX() { return memory[3]; }
+	char getAX() const { return AX; }
+	char getBX() const { return BX; }
+	char getCX() const { return CX; }
+	char getDX() const { return DX; }
+	char getFlage() const{return Flag;}
 
-	void setAX(char value) { memory[0] = value; } //ustawia wartosc value w danym rejestrze
-	void setBX(char value) { memory[1] = value; }
-	void setCX(char value) { memory[2] = value; }
-	void setDX(char value) { memory[3] = value; }
+	void setAX(char value) { AX = value; } //ustawia wartosc value w danym rejestrze
+	void setBX(char value) { BX = value; }
+	void setCX(char value) { CX = value; }
+	void setDX(char value) { DX = value; }
+	void setFlag(char value) {Flag = value;}
 
 	void printMemory()
 	{

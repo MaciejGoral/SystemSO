@@ -54,7 +54,7 @@ void ProcessManager::displayReadyProcesses()
 {
 	if (readyProcesses.empty() == true)
 	{
-		std::cout << "Lista jest pusta.\n";
+		std::cout << "Lista procesow gotowych jest pusta\n";
 	}
 	else
 	{
@@ -66,11 +66,27 @@ void ProcessManager::displayReadyProcesses()
 }
 
 
+void ProcessManager::displayWaitingProcesses()
+{
+	if (waitingProcesses.empty() == true)
+	{
+		std::cout << "Lista procesow oczekujacych jest pusta\n";
+	}
+	else
+	{
+		for (auto it = waitingProcesses.begin(); it != waitingProcesses.end(); it++)
+		{
+			(*it)->displayProcess();
+		}
+	}
+}
+
+
 void ProcessManager::removeProcessByName(std::string processName)
 {
 	if (processName == "init")
 	{
-		std::cout << "Nie mozna usunac procesu 'init'.\n";
+		std::cout << "Nie mozna usunac procesu 'init'\n";
 	}
 	else if (ifProcessExists(processName) == false)
 	{
@@ -86,7 +102,7 @@ void ProcessManager::removeProcessByName(std::string processName)
 		}
 		if (process->getProcessState() == waiting)
 		{
-			std::cout << "Nie mozna usunac procesu ze statusem 'waiting'.\n";
+			std::cout << "Nie mozna usunac procesu ze statusem 'waiting'\n";
 		}
 		else if (process->children.empty() == true)
 		{

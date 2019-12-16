@@ -21,12 +21,14 @@ class PCB
 {
 private:
 	int PID;
-	processState state;
 	std::string processName;
 	std::string fileName;
 	char AX, BX, CX, DX, Flag;
 
 public:
+	processState state;
+	int instructionPointer;
+	
 	PCB();
 	PCB(std::string processName, std::string fileName);
 	PCB* parent;

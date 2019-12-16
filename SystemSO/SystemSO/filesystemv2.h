@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "Semaphore.h"
+
 #define SIZE_OF_BLOCK 32 //w bajtach
 #define SIZE_OF_DISK 1024
 
@@ -11,6 +13,11 @@ struct inode
 	std::vector<char>* first_data_block;
 	std::vector<char>* second_data_block;
 	std::vector<int> index_block;
+
+	//Synhronizacja, Jan Witczak
+	Semaphore File_Mutex(1);
+	int Read_Count = 0;
+	//Synchronizacja.
 };
 class disk_drive
 {
@@ -47,5 +54,12 @@ public:
 	void free_up_block_for_pointer(std::vector<char>* pointer);//dziala
 	void display_file(std::string file_name); 
 	int search_inode(std::string file_name);
-	
+
+	//Synhronizacja, Jan Witczak
+	void open_file(std::string file_name_);
+	void close_file(std::string file_name_);
+
+	void open_file_reading(std::string file_name_);
+	void close_file_reading(std::string file_name_);
+	//Synchronizacja.	
 };

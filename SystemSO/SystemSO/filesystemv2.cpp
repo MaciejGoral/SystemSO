@@ -450,3 +450,38 @@ int main()
 	//a.display_file("2");
 	//a.create_file("123"); */
 }
+
+
+//Synchronizacja, Jan Witczak
+void file_system::open_file(std::string file_name_)
+{
+	int inode_index = search_inode(file_name_);
+	if (inode_index != -1) inode_table[inode_index].File_Mutex.wait();
+}
+
+void file_system::close_file(std::string file_name_)
+{
+	int inode_index = search_inode(file_name_);
+	if (inode_index != -1) inode_table[inode_index].File_Mutex.signal();
+}
+
+void file_system::open_file_reading(std::string file_name_)
+{
+	int inode_index = search_inode(file_name_);
+	if (inode_index != -1)
+	{
+		inode_table[inode_index].Read_Count++;
+		if (inode_table[inode_index].Read_Count == 1) inode_table[inode_index].File_Mutex.wait();
+	}
+}
+
+void file_system::close_file_reading(std::string file_name_)
+{
+	int inode_index = search_inode(file_name_);
+	if (inode_index != -1)
+	{
+		inode_table[inode_index].Read_Count--;
+		if (inode_table[inode_index].Read_Count == 0) inode_table[inode_index].File_Mutex.signal();
+	}
+}
+//Synchronizacja.

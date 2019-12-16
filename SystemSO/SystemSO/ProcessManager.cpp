@@ -58,7 +58,7 @@ void ProcessManager::displayReadyProcesses()
 	}
 	else
 	{
-		for (auto it = allProcesses.begin(); it != allProcesses.end(); it++)
+		for (auto it = readyProcesses.begin(); it != readyProcesses.end(); it++)
 		{
 			(*it)->displayProcess();
 		}

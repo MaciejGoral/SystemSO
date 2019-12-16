@@ -89,13 +89,13 @@ public:
 	char getBX() const { return BX; }
 	char getCX() const { return CX; }
 	char getDX() const { return DX; }
-	char getFlage() const{return Flag;}
+	char getFlags() const{return Flag;}
 
 	void setAX(char value) { AX = value; } //ustawia wartosc value w danym rejestrze
 	void setBX(char value) { BX = value; }
 	void setCX(char value) { CX = value; }
 	void setDX(char value) { DX = value; }
-	void setFlag(char value) {Flag = value;}
+	void setFlags(char value) {Flag = value;}
 
 	void printMemory()
 	{

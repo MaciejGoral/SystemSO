@@ -20,6 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="filesystemv2.h" />
+    <ClInclude Include="memory.h" />
+    <ClInclude Include="O1Scheduler.h" />
+    <ClInclude Include="Page.h" />
     <ClInclude Include="Process.hpp" />
     <ClInclude Include="ProcessManager.hpp" />
     <ClInclude Include="Semaphore.h" />
@@ -27,6 +30,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="filesystemv2.cpp" />
+    <ClCompile Include="memory.cpp" />
+    <ClCompile Include="O1Scheduler.cpp" />
+    <ClCompile Include="Page.cpp" />
     <ClCompile Include="Process.cpp" />
     <ClCompile Include="ProcessManager.cpp" />
     <ClCompile Include="Semaphore.cpp" />

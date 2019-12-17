@@ -25,6 +25,9 @@
     <Filter Include="Memory">
       <UniqueIdentifier>{c916eccb-d34c-4bba-a8bf-8a2f21e23c6f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="O1">
+      <UniqueIdentifier>{97abfb33-41a7-4d8f-a82d-c47066b958d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shell.h">
@@ -47,6 +50,9 @@
     </ClInclude>
     <ClInclude Include="memory.h">
       <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="O1Scheduler.h">
+      <Filter>O1</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +79,9 @@
     </ClCompile>
     <ClCompile Include="Page.cpp">
       <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="O1Scheduler.cpp">
+      <Filter>O1</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

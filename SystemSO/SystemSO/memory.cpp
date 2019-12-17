@@ -134,9 +134,11 @@ Memory::~Memory()
 {
 	delete[] RAM;
 }
-
+/*
 	int main() 
 	{
 		m.Show_RAM_state();
 		system("pause");
 	}
+
+	*/

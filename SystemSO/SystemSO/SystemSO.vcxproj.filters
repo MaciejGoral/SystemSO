@@ -13,10 +13,31 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Semafory">
+      <UniqueIdentifier>{36cec81d-c8b9-4608-9a19-b41b04ac4e71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System plikow">
+      <UniqueIdentifier>{f6816123-9aa9-4023-b6a7-8a5eefc3d4ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Zarzadzanie procesami">
+      <UniqueIdentifier>{5e9f9382-16bd-42f0-8574-ce95b97587c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shell.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Semaphore.h">
+      <Filter>Semafory</Filter>
+    </ClInclude>
+    <ClInclude Include="filesystemv2.h">
+      <Filter>System plikow</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcessManager.hpp">
+      <Filter>Zarzadzanie procesami</Filter>
+    </ClInclude>
+    <ClInclude Include="Process.hpp">
+      <Filter>Zarzadzanie procesami</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -25,6 +46,18 @@
     </ClCompile>
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Semaphore.cpp">
+      <Filter>Semafory</Filter>
+    </ClCompile>
+    <ClCompile Include="filesystemv2.cpp">
+      <Filter>System plikow</Filter>
+    </ClCompile>
+    <ClCompile Include="Process.cpp">
+      <Filter>Zarzadzanie procesami</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessManager.cpp">
+      <Filter>Zarzadzanie procesami</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

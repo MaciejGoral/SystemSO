@@ -1,25 +1,23 @@
 #pragma once
 #include<map>
 #include"PCB.hpp"
-#include"AssemblerCommandFactory.hpp"
+#include"CommandScript/AssemblerCommandFactory.hpp"
 
 class Interpreter
 {
 protected:
-	std::shared_ptr<PCB> pcb;
-	Flags flags;
-	
-	static std::map<std::string, std::unique_ptr<AssembleCommandInterface>> functionList;
+	std::map<std::string, std::unique_ptr<AssembleCommandInterface>> functionList;
 public:
-	static std::unique_ptr<AssemblerCommandFactory> commandFactory;
+	std::shared_ptr<PCB> pcb;
+	std::unique_ptr<AssemblerCommandFactory> commandFactory;
 
+	Interpreter();
 	Interpreter(std::shared_ptr<PCB>& pcb_ptr);
 	~Interpreter();
 
-	char step(char instructionPosition);
-	char stepWithDebug(char instructionPosition);
+	int step(int instructionPosition);
+	int stepWithDebug(int instructionPosition);
 
 	std::shared_ptr<PCB>& getPCB();
-	const Flags& getFlags() const;
 };
 

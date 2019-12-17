@@ -19,16 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="filesystemv2.h" />
+    <ClInclude Include="Process.hpp" />
+    <ClInclude Include="ProcessManager.hpp" />
+    <ClInclude Include="Semaphore.h" />
     <ClInclude Include="Shell.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="filesystemv2.cpp" />
+    <ClCompile Include="Process.cpp" />
+    <ClCompile Include="ProcessManager.cpp" />
+    <ClCompile Include="Semaphore.cpp" />
     <ClCompile Include="Shell.cpp" />
     <ClCompile Include="Source.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Interpreter\Interpreter.vcxproj">
-      <Project>{4b376025-5994-403e-8673-56a1d794f569}</Project>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

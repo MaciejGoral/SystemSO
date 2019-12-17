@@ -3,21 +3,19 @@
 #include <list>
 #include <iostream>
 
-extern int processCounter;
+int PCB::processCounter = 0;
 
-PCB::PCB(std::string processName, std::string filename)
+PCB::PCB() {
+	AX = BX = CX = DX = Flag = instructionPointer = 0;
+}
+PCB::PCB(std::string processName, std::string filename) : PCB()
 {
 	this->PID = processCounter++;
 	this->processName = processName;
-	this->state = active;
 	this->fileName = filename + ".txt";
-	this->state = ready;
+	this->state = processState::ready;
 	loadProgramFromFile(fileName); //odczyt programu z pliku
 }
-
-
-PCB::PCB() {}
-
 
 int PCB::getPID()
 {
@@ -29,16 +27,16 @@ void PCB::displayProcess()
 	std::string sState;
 	switch (state)
 	{
-		case 0:
+	case processState::active:
 			sState = "Active";
 			break;
-		case 1:
+	case processState::waiting:
 			sState = "Waiting";
 			break;
-		case 2:
+	case processState::ready:
 			sState = "Ready";
 			break;
-		case 3:
+	case processState::terminated:
 			sState = "Terminated";
 			break;
 	}

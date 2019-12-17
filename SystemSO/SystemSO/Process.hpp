@@ -7,11 +7,12 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include"filesystemv2.h"
 
 #define ArraySize 32 //tymczasowy ram
 
 
-enum processState
+enum class processState : char
 { 
 	active = 0, waiting = 1, ready = 2, terminated = 3
 };
@@ -25,9 +26,11 @@ private:
 	std::string fileName;
 	char AX, BX, CX, DX, Flag;
 
+	static int processCounter;
 public:
 	processState state;
 	int instructionPointer;
+	file_system files;
 	
 	PCB();
 	PCB(std::string processName, std::string fileName);
@@ -50,29 +53,28 @@ public:
 		return adrr >= 0 && adrr < ArraySize; 
 	}
 
-	bool status = true;
 	std::shared_ptr<std::vector<std::string>> program;
 	
 
-	static std::shared_ptr<PCB> loadProgramFromFile(std::string fileName) 
+	bool loadProgramFromFile(std::string fileName) 
 	{
-		std::shared_ptr<PCB> result = std::make_shared<PCB>();
 		std::string bufor;
 		std::ifstream input(fileName);
 		if (input.good() == true)
 		{
 			while (input >> bufor)
 			{
-				result->program->push_back(bufor);
+				this->program->push_back(bufor);
 			}
 			input.close();
-			return result;
+			return true;
 		}
 		else
 		{
 			std::cout << "Nie znaleziono wskazanego pliku lub plik jest uszkodzony.";
+			return false;
 		}
-		}
+	}
 
 	void writeInMemory(int adrr, char value) 
 	{

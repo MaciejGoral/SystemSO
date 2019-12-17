@@ -19,6 +19,7 @@ public:
 	void createInitProcess();
 	void displayAllProcesses();
 	void displayReadyProcesses();
+	void displayWaitingProcesses();
 	void removeProcessByName(std::string processName);
 	bool ifProcessExists(std::string processName);
 	PCB* findProcess(std::string processName);

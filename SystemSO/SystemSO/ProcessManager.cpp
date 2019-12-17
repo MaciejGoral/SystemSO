@@ -100,7 +100,7 @@ void ProcessManager::removeProcessByName(std::string processName)
 		{
 			runningProcess = findProcess("init");
 		}
-		if (process->getProcessState() == waiting)
+		if (process->getProcessState() == processState::waiting)
 		{
 			std::cout << "Nie mozna usunac procesu ze statusem 'waiting'\n";
 		}
@@ -182,7 +182,7 @@ void ProcessManager::setWaitingStatusToProcess(std::string processName)
 			break;
 		}
 	}
-	process->setProcessState(waiting);
+	process->setProcessState(processState::waiting);
 	waitingProcesses.push_back(process);
 }
 
@@ -199,6 +199,6 @@ void ProcessManager::setReadyStatusToProcess(std::string processName)
 			break;
 		}
 	}
-	process->setProcessState(ready);
+	process->setProcessState(processState::ready);
 	readyProcesses.push_back(process);
 }

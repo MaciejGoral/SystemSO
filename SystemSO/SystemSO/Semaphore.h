@@ -5,6 +5,8 @@
 class Semaphore
 {
 public:
+	static std::shared_ptr<PCB> runningProcess;
+
 	Semaphore(int value_);
 
 
@@ -15,6 +17,6 @@ public:
 	
 private:
 	int Value;
-	std::queue<PCB*> Waiting_Processes;
+	std::queue<std::shared_ptr<PCB>> Waiting_Processes;
 };
 

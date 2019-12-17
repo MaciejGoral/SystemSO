@@ -20,6 +20,7 @@ int Interpreter::step(int instructionPosition)
 {
 	int result = 0;
 	std::string command = pcb->program->at(instructionPosition);
+	for (char& c : command) { c = std::toupper(c); }
 	if(functionList.find(command)==functionList.end()){
 		bool isAdded = false;
 		if (Interpreter::commandFactory != nullptr) {

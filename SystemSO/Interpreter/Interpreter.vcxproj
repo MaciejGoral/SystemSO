@@ -162,6 +162,7 @@
     <ClCompile Include="CommandScript\AssemblerCommandFactory.cpp" />
     <ClCompile Include="CommandScript\Commands\Command.cpp" />
     <ClCompile Include="CommandScript\Commands\ConsoleCommand.cpp" />
+    <ClCompile Include="CommandScript\Commands\FileCommand.cpp" />
     <ClCompile Include="CommandScript\Commands\LogicCommand.cpp" />
     <ClCompile Include="CommandScript\Commands\MathCommand.cpp" />
     <ClCompile Include="Conversion.cpp" />

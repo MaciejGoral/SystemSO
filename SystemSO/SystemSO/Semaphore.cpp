@@ -1,7 +1,7 @@
 #include "Semaphore.h"
 #include "filesystemv2.h"
 
-extern PCB* runningProcess;
+std::shared_ptr<PCB> Semaphore::runningProcess = nullptr;
 
 Semaphore::Semaphore(int value_) : Value(value_)
 {

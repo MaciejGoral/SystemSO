@@ -17,13 +17,13 @@ char command::ConsoleWriteNumber::doCommand(std::shared_ptr<PCB>& pcb, char star
 }
 
 char command::ConsoleWriteWords::doCommand(std::shared_ptr<PCB>& pcb, char startArgs) {
-	char argv = 1;
+	char argv = 2;
 	std::vector<ArgumentType> args = this->loadArgs(argv, startArgs, pcb);
 	if (args.size() != argv) { throw std::exception("Failed loading arguments"); }
 	ConsoleWriteLetter write;
 	int size = this->getValue(args[0], pcb);
 	for (int i = 0; i < size; ++i) {
-		write.doCommand(pcb, startArgs + argv + i);
+		write.doCommand(pcb, this->getValue(args[1], pcb) + argv + i);
 	}
 	return startArgs + argv + size;
 }
@@ -42,4 +42,15 @@ char command::ConsoleReadChar::doCommand(std::shared_ptr<PCB>& pcb, char startAr
 	std::cin >> sign; std::cin.ignore();
 	pcb->setBX(sign);
 	return startArgs;
+}
+
+char command::ConsoleWriteWordsFromRam::doCommand(std::shared_ptr<PCB>& pcb, char startArgs)
+{
+	char argv = 2;
+	std::vector<ArgumentType> args = this->loadArgs(argv, startArgs, pcb);
+	if (args.size() != argv) { throw std::exception("Failed loading arguments"); }
+	int size = this->getValue(args[0], pcb);
+	for (int i = 0; i < size; ++i) {
+	}
+	return startArgs + argv + size;
 }

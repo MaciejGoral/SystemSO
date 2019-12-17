@@ -15,6 +15,10 @@ namespace command {
 	public:
 		virtual char doCommand(std::shared_ptr<PCB>& pcb, char startArgs = 0);
 	};
+	class ConsoleWriteWordsFromRam : public AssemblerTranslator {
+	public:
+		virtual char doCommand(std::shared_ptr<PCB>& pcb, char startArgs = 0);
+	};
 	class ConsoleRead : public AssemblerTranslator {
 	public:
 		virtual char doCommand(std::shared_ptr<PCB>& pcb, char startArgs = 0);

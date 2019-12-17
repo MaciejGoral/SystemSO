@@ -5,6 +5,7 @@
 
 int PCB::processCounter = 0;
 
+
 PCB::PCB() {
 	AX = BX = CX = DX = Flag = instructionPointer = 0;
 }

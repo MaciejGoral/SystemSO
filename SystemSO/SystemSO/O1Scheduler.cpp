@@ -60,13 +60,13 @@ void O1Scheduler::creating_bitmap(std::shared_ptr<ProcessTable>table) {
 //	table->at(5).empty()
 }
 
-int O1Scheduler::time_slice_calculation(int some_priority) {
+int O1Scheduler::time_slice_calculation(const std::shared_ptr<PCB>& giving_process) {
 	int time_slice;
-	if (some_priority >= 100 && some_priority < 120) {
-		time_slice = (140 - some_priority) * 20;
+	if (giving_process->dynamic_priority>= 100 && giving_process->dynamic_priority < 120) {
+		time_slice = (140 - giving_process->dynamic_priority) * 4;
 	}
-	else if (some_priority >= 120 && some_priority < 140) {
-		time_slice = (140 - some_priority) * 5;
+	else if (giving_process->dynamic_priority >= 120 && giving_process->dynamic_priority < 140) {
+		time_slice = (140 - giving_process->dynamic_priority) * 1;
 	}
 	return time_slice;
 }
@@ -77,44 +77,43 @@ void O1Scheduler::move_process_to_expired_table(int new_dynamic_priority, std::s
 	pcb->dynamic_priority = new_dynamic_priority;
 }
 
-int O1Scheduler::calculating_dynamic_priority(int bonus,std::shared_ptr<PCB>& pcb) {
-	int dynamic_priority;
-	dynamic_priority = std::max(100, (std::min(pcb->static_process_priority - bonus + 5, 139)));
-	return dynamic_priority;
+void O1Scheduler::calculating_dynamic_priority(int bonus,std::shared_ptr<PCB>& pcb) {
+
+	pcb->dynamic_priority = std::max(100, (std::min(pcb->static_process_priority - bonus + 5, 139)));
 }
 
-int O1Scheduler::calculating_bonus(std::shared_ptr<PCB>giving_process) {
-	if (giving_process->average_sleep_time >= 0 && giving_process->average_sleep_time < 100) {
+int O1Scheduler::calculating_bonus(const std::shared_ptr<PCB>&giving_process) {
+	if (giving_process->average_sleep_time >= 0 && giving_process->average_sleep_time < 20) {
 		return 0;
 	}
-	else if (average_sleep_time >= 100 && average_sleep_time < 200) {
+	else if (giving_process->average_sleep_time >= 20 && giving_process->average_sleep_time < 40) {
 		return 1;
 	}
-	else if (average_sleep_time >= 200 && average_sleep_time < 300) {
+	else if (giving_process->average_sleep_time >= 40 && giving_process->average_sleep_time < 60) {
 		return 2;
 	}
-	else if (average_sleep_time >= 300 && average_sleep_time < 400) {
+	else if (giving_process->average_sleep_time >= 60 && giving_process->average_sleep_time < 80) {
 		return 3;
 	}
-	else if (average_sleep_time >= 400 && average_sleep_time < 500) {
+	else if (giving_process->average_sleep_time >= 80 && giving_process->average_sleep_time < 100) {
 		return 4;
 	}
-	else if (average_sleep_time >= 500 && average_sleep_time < 600) {
+	else if (giving_process->average_sleep_time >= 100 && giving_process->average_sleep_time < 120) {
 		return 5;
 	}
-	else if (average_sleep_time >= 600 && average_sleep_time < 700) {
+	else if (giving_process->average_sleep_time >= 120 && giving_process->average_sleep_time < 140) {
 		return 6;
 	}
-	else if (average_sleep_time >= 700 && average_sleep_time < 800) {
+	else if (giving_process->average_sleep_time >= 140 && giving_process->average_sleep_time < 160) {
 		return 7;
 	}
-	else if (average_sleep_time >= 800 && average_sleep_time < 900) {
+	else if (giving_process->average_sleep_time >= 160 && giving_process->average_sleep_time < 180) {
 		return 8;
 	}
-	else if (average_sleep_time >= 900 && average_sleep_time < 1000) {
+	else if (giving_process->average_sleep_time >= 180 && giving_process->average_sleep_time < 200) {
 		return 9;
 	}
-	else if (average_sleep_time >= 1000) {
+	else if (giving_process->average_sleep_time >= 200) {
 		return 10;
 	}
 }

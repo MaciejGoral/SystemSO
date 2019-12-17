@@ -3,6 +3,7 @@
 #include <list>
 #include <string>
 #include "Process.hpp"
+#include "..\Interpreter\Interpreter.hpp"
 
 
 

@@ -31,6 +31,11 @@ public:
 	processState state;
 	int instructionPointer;
 	file_system files;
+	int whenStartWaiting, whenStartRunning;
+	int static_process_priorety, dynamic_process_priorety;
+	int average_sleep_time;
+
+	
 	
 	PCB();
 	PCB(std::string processName, std::string fileName);

@@ -7,6 +7,8 @@
 #include <memory>
 #include <algorithm>
 #include <iostream>
+#include "Process.hpp"
+#include "..\Interpreter\Interpreter.hpp"
 
 
 #define PriorityVector std::vector<std::shared_ptr<PCB>>
@@ -30,9 +32,8 @@ public:
 	O1Scheduler();
 	~O1Scheduler();
 
-	int instructions_in_one_era;
 	int DEFAULT_PRIORITY = 120;
-	PCB* pcb;
+	std::shared_ptr<PCB>pcb;
 
 	std::array<bool, 140>bitmapa;
 	std::array<PriorityVector, 140>active_array;
@@ -51,16 +52,16 @@ public:
 
 	int number_of_first_biggest_priority_in_bitmap();
 
-	int time_slice_calculation(int some_priority);
+	int time_slice_calculation(const std::shared_ptr<PCB>& giving_process);
 
 	void move_process_to_expired_table(int new_dynamic_priority, std::shared_ptr<PCB>& pcb);				//przeniesienie procesu up³yniêciu przeznaczonego mu kwantu czasu
 
-	int calculating_dynamic_priority(int bonus, std::shared_ptr<PCB>& pcb);						//obliczenie nowego priorytetu
+	void calculating_dynamic_priority(int bonus, std::shared_ptr<PCB>& pcb);						//obliczenie nowego priorytetu
 
-	int calculating_bonus(int average_sleep_time);				//obliczenie bonusu
+	int calculating_bonus(const std::shared_ptr<PCB>&giving_process);				//obliczenie bonusu
 
-	void RunProcess();
-	void RunProcess(int);
+//	void RunProcess();
+//	void RunProcess(int);
 };
 
 

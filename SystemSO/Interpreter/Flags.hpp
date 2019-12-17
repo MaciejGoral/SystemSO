@@ -6,6 +6,7 @@
 #define CF 1<<3
 #define TF 1<<4
 
+//gggg
 class Flags {
 public:
 	static bool getFlag(char flags, char index){

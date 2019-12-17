@@ -3,18 +3,23 @@
 #include <list>
 #include <iostream>
 
-int PCB::processCounter = 0;
+//int PCB::processCounter = 0;
+extern int pidCounter;
 
 
 PCB::PCB() {
 	AX = BX = CX = DX = Flag = instructionPointer = 0;
+	//this->PID = ++processCounter;
 }
-PCB::PCB(std::string processName, std::string filename) : PCB()
+PCB::PCB(std::string processName, std::string filename, int staticpriority) : PCB()
 {
-	this->PID = processCounter++;
 	this->processName = processName;
 	this->fileName = filename + ".txt";
 	this->state = processState::ready;
+	this->staticPriority = staticpriority;
+	this->dynamicPriority = staticPriority;
+	//this->processCounter = pidCounter;
+	this->PID = pidCounter;
 	loadProgramFromFile(fileName); //odczyt programu z pliku
 }
 
@@ -29,22 +34,21 @@ void PCB::displayProcess()
 	switch (state)
 	{
 	case processState::active:
-			sState = "Active";
-			break;
+		sState = "Active";
+		break;
 	case processState::waiting:
-			sState = "Waiting";
-			break;
+		sState = "Waiting";
+		break;
 	case processState::ready:
-			sState = "Ready";
-			break;
+		sState = "Ready";
+		break;
 	case processState::terminated:
-			sState = "Terminated";
-			break;
+		sState = "Terminated";
+		break;
 	}
 
-	std::cout << "PID: " << PID << " | Process name: " << processName << " | File name: " << fileName << " | State: " << sState << "\n";
+	std::cout << "PID: " << PID << " | Process name: " << processName << " | File name: " << fileName << " | State: " << sState << " | Static priority: " << staticPriority << " | Dynamic priority: " << dynamicPriority << "\n";
 }
-
 
 std::string PCB::getProcessName()
 {

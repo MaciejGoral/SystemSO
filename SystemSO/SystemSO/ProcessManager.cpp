@@ -15,7 +15,7 @@ ProcessManager::ProcessManager()
 
 void ProcessManager::createInitProcess()
 {
-	PCB* newProcess = new PCB("init","init");
+	PCB* newProcess = new PCB("init","init", 139);
 	newProcess->parent = nullptr;
 	allProcesses.push_back(newProcess);
 	readyProcesses.push_back(newProcess);
@@ -23,9 +23,9 @@ void ProcessManager::createInitProcess()
 }
 
 
-void ProcessManager::createProcess(std::string processName, std::string fileName)
+void ProcessManager::createProcess(std::string processName, std::string fileName, int staticPriority)
 {
-	PCB *newProcess = new PCB(processName, fileName);
+	PCB *newProcess = new PCB(processName, fileName, staticPriority);
 	newProcess->parent = findProcess("init");
 	newProcess->parent->children.push_back(newProcess);
 	allProcesses.push_back(newProcess);

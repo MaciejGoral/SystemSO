@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="filesystemv2.h" />
+    <ClInclude Include="LoadProgramToMemory.hpp" />
     <ClInclude Include="memory.h" />
     <ClInclude Include="O1Scheduler.h" />
     <ClInclude Include="Page.h" />

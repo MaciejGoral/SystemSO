@@ -13,10 +13,9 @@ public:
 	std::list<PCB*> allProcesses;
 	std::list<PCB*> readyProcesses;
 	std::list<PCB*> waitingProcesses;
-	PCB* runningProcess;
 	ProcessManager();
 
-	void createProcess(std::string processName, std::string fileName);
+	void createProcess(std::string processName, std::string fileName, int staticPriority);
 	void createInitProcess();
 	void displayAllProcesses();
 	void displayReadyProcesses();

@@ -22,6 +22,9 @@
     <Filter Include="Zarzadzanie procesami">
       <UniqueIdentifier>{5e9f9382-16bd-42f0-8574-ce95b97587c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Memory">
+      <UniqueIdentifier>{c916eccb-d34c-4bba-a8bf-8a2f21e23c6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shell.h">
@@ -38,6 +41,12 @@
     </ClInclude>
     <ClInclude Include="Process.hpp">
       <Filter>Zarzadzanie procesami</Filter>
+    </ClInclude>
+    <ClInclude Include="Page.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="memory.h">
+      <Filter>Memory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -58,6 +67,12 @@
     </ClCompile>
     <ClCompile Include="ProcessManager.cpp">
       <Filter>Zarzadzanie procesami</Filter>
+    </ClCompile>
+    <ClCompile Include="memory.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Page.cpp">
+      <Filter>Memory</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

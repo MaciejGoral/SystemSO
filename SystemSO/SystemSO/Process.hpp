@@ -24,16 +24,19 @@ private:
 	int PID;
 	std::string processName;
 	std::string fileName;
+	int staticPriority;
+	int dynamicPriority;
+	int processCounter;
 	char AX, BX, CX, DX, Flag;
 
-	static int processCounter;
+	//static int processCounter;
 public:
 	processState state;
 	int instructionPointer;
 	file_system files;
 	
 	PCB();
-	PCB(std::string processName, std::string fileName);
+	PCB(std::string processName, std::string fileName, int staticPriority);
 	PCB* parent;
 	std::list<PCB*> children;
 	int getPID();

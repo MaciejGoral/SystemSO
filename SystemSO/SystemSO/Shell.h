@@ -9,7 +9,7 @@ public:
 	Shell();
 	void wybierz_metode(std::string komenda); //metoda wybieraj¹ca polecenie
 
-	void CP(std::string nazwa_procesu, std::string nazwa_pliku); //utworzenie procesu
+	void CP(std::string nazwa_procesu, std::string nazwa_pliku, int staticPriority); //utworzenie procesu
 	void DP(std::string nazwa_procesu); //usuwanie procesu
 	void EXE(); //wykonanie kolejnego rozkazu procesu
 	void SP(std::string nazwa); //wyœwietla parametry procesu

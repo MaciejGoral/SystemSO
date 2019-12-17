@@ -2,13 +2,19 @@
 #include <vector>
 #include <string>
 #include "Shell.h"
+#include "Process.hpp"
+#include "ProcessManager.hpp"
 #include <iterator>
 #include <sstream>
 #include <fstream>
 using namespace std;
+
+extern ProcessManager* processManager;
+
 Shell::Shell()
 {
 	on_off = true;
+	processManager = new ProcessManager();
 	//wpiszcie tu wszystko co musi sie wydarzy na starcie wystemu
 }
 
@@ -22,14 +28,17 @@ bool numer(const std::string& s)
 	return !s.empty() && it == s.end();
 }
 
-void Shell::CP(std::string nazwa_procesu, std::string nazwa_pliku)
+void Shell::CP(std::string nazwa_procesu, std::string nazwa_pliku, int staticPriority)
 {
-	//ProcessManager->createProcess(nazwa_procesu,nazwa_pliku);
+	int number;
+	std::istringstream iss(staticPriority);
+	iss >> number;
+	processManager->createProcess(nazwa_procesu, nazwa_pliku, number); 
 }
 
 void Shell::DP(std::string nazwa_procesu)
 {
-	//ProcessManager->killProcess(nazwa_procesu);
+	processManager->removeProcessByName(nazwa_procesu);
 }
 
 void Shell::EXE()
@@ -39,22 +48,22 @@ void Shell::EXE()
 
 void Shell::SP(std::string nazwa)
 {
-	//ProcessManager->displayProcess(nazwa);
+	processManager->findProcess(nazwa)->displayProcess();
 }
 
 void Shell::DAP()
 {
-	//Processmanager->displayAllProcesses();
+	processManager->displayAllProcesses();
 }
 
 void Shell::DWP()
 {
-	//Processmanager->displayWaitingProcesses();
+	processManager->displayWaitingProcesses();
 }
 
 void Shell::DRP()
 {
-	//Processmanager->displayReadyProcesses();
+	processManager->displayReadyProcesses();
 }
 
 void Shell::SR()
@@ -145,13 +154,13 @@ void Shell::wybierz_metode(std::string komenda)
 	} while (pom);
 	if (polecenie[0] == "CP")
 	{
-		if (polecenie.size() != 4)
+		if (polecenie.size() != 5)
 		{
 			cout << "Komenda zawiera nieprawidlowa liczbe argumentow" << endl;
 		}
 		else
 		{
-			CP(polecenie[1], polecenie[2]);
+			CP(polecenie[1], polecenie[2], stoi(polecenie[3]));
 		}
 	}
 	else if (polecenie[0] == "DP")

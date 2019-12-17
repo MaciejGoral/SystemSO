@@ -1,7 +1,15 @@
 #include <iostream>
 #include <string>
+#include "Process.hpp"
+#include "ProcessManager.hpp"
 #include "Shell.h"
 //za³¹czcie tu swoje klasy
+
+ProcessManager* processManager;
+PCB* runningProcess;
+int pidCounter = 1;
+
+
 int main()
 {
 	Shell shell;

@@ -3,8 +3,12 @@
 #include <list>
 #include <iostream>
 
+<<<<<<< HEAD
 //int PCB::processCounter = 0;
 extern int pidCounter;
+=======
+int PCB::processCounter = 0;
+>>>>>>> parent of e1b1b34... ło
 
 PCB::PCB() {
 	AX = BX = CX = DX = Flag = instructionPointer = 0;

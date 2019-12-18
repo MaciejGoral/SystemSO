@@ -34,8 +34,11 @@ void ProcessManager::createProcess(std::string processName, std::string fileName
 	allProcesses.push_back(newProcess);
 	readyProcesses.push_back(newProcess);
 	runningProcess = newProcess;
-
+	std::unique_ptr<PCB>newProcess_smart= std::make_unique<PCB>(newProcess);
+	//newProcess_smart = std::make_unique<PCB>(newProcess);
+	newProcess_smart->whenStartWaiting = Interpreter::allInstructions;
 	
+//	scheduler1.add_new_process_to_expired(newProcess_smart);
 }
 
 

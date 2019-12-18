@@ -16,6 +16,8 @@ public:
 	std::list<PCB*> waitingProcesses;
 	ProcessManager();
 
+	O1Scheduler scheduler1;
+
 	void createProcess(std::string processName, std::string fileName, int staticPriority);
 	void createInitProcess();
 	void displayAllProcesses();

@@ -8,6 +8,7 @@
 #include <vector>
 #include <string>
 #include"filesystemv2.h"
+#include"O1Scheduler.h"
 
 #define ArraySize 32 //tymczasowy ram
 
@@ -35,6 +36,8 @@ public:
 	int instructionPointer;
 	file_system files;
 
+	
+//	O1Scheduler scheduler;
 	int staticPriority;
 	int dynamicPriority;
 	int average_sleep_time;

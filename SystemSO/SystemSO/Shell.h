@@ -1,9 +1,11 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include"Interpreter/Interpreter.hpp"
 class Shell
 {
 public:
+	Interpreter interpreter;
 	bool on_off;
 
 	Shell();
@@ -19,10 +21,14 @@ public:
 	void DRP(); //wyœwietla gotowe procesy
 
 	void SR(); //wyœwietla zawartoœci ca³ej pamiêci RAM
-	void SRR(int adres_pocz¹tkowy, int rozmiar); //wyœwietla pamiêæ RAM od wskazanego adresu o wskazanej wielkoœci
+	void SRR(); //wyœwietla pamiêæ RAM od wskazanego adresu o wskazanej wielkoœci
+	void PH(); //pokazuje adres fizyczny
+	void LH(); //pokazuje adres logiczny
+	void LA(); //³aduje ca³y program do RAMU
+	void PT(); //pokazuje tablice stronnic
 
 	void LD(); //metoda wyœwietlaj¹ca zawartoœæ
-	void CF(std::string nazwa_pliku); //tworzy plik
+	void CFF(std::string nazwa_pliku); //tworzy plik
 	void DF(std::string nazwa_pliku); //usuwa plik
 	void RF(std::string nazwa_pliku, std::string nowa_nazwa); //zmiana nazwy pliku
 	void AP(std::string nazwa, std::string dane); //dopisywanie do pliku

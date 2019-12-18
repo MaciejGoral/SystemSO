@@ -7,10 +7,15 @@
 #include <iterator>
 #include <sstream>
 #include <fstream>
+#include "Memory.h"
+#include "memory.cpp"
+#include "filesystemv2.cpp"
+#include "Interpreter/Interpreter.hpp"
 using namespace std;
 
 extern ProcessManager* processManager;
-
+Memory mem1;
+file_system fs;
 Shell::Shell()
 {
 	on_off = true;
@@ -33,17 +38,19 @@ void Shell::CP(std::string nazwa_procesu, std::string nazwa_pliku, int staticPri
 	int number;
 	std::istringstream iss(staticPriority);
 	iss >> number;
-	processManager->createProcess(nazwa_procesu, nazwa_pliku, number); 
+	processManager->createProcess(nazwa_procesu, nazwa_pliku, number);
+	mem1.createProcess(nazwa_pliku);
 }
 
 void Shell::DP(std::string nazwa_procesu)
 {
 	processManager->removeProcessByName(nazwa_procesu);
+	mem1.deleteProcess;
 }
 
 void Shell::EXE()
 {
-	//interpreter->step()
+	interpreter.pcb->instructionPointer = interpreter.step(interpreter.pcb->instructionPointer);
 }
 
 void Shell::SP(std::string nazwa)
@@ -68,53 +75,69 @@ void Shell::DRP()
 
 void Shell::SR()
 {
-	//modu³_zarz¹dzania_pamieci¹->showRam();
+	mem1.showMemory();
 
 }
 
-void Shell::SRR(int adres_pocz¹tkowy, int rozmiar)
+void Shell::SRR()
 {
-	//modu³_zarz¹dzania_pamieci¹->showRamRange(adres_pocz¹tkowy,rozmiar);
+	mem1.showProcessInMemory();
+}
+
+void Shell::PH()
+{
+	mem1.showCharPhysicAddr();
+}
+void Shell::LH()
+{
+	mem1.showCharLogicAddr();
+}
+void Shell::LA()
+{
+	mem1.LoadAllProcessToMemory();
+}
+void Shell::PT()
+{
+	mem1.showPageTable();
 }
 
 void Shell::LD()
 {
-	//modu³_zarz¹dzania_plikami->listDirectory();
+	fs.display_all_information_about_all_files();
 }
 
-void Shell::CF(std::string nazwa_pliku)
+void Shell::CFF(std::string nazwa_pliku)
 {
-	//modu³_zarz¹dzania_plikami->utworz_plik(nazwa_pliku);
+	fs.create_file_v2(nazwa_pliku);
 }
-
 void Shell::DF(std::string nazwa_pliku)
 {
-	//modu³_zarz¹dzania_plikami->usun_plik(nazwa_pliku);
+	fs.delete_file_v2(nazwa_pliku);
 }
 
 void Shell::RF(std::string nazwa_pliku, std::string nowa_nazwa)
 {
-	//modu³_zarz¹dzania_plikami->zmien_nazwe_pliku(nazwa_pliku,nowa_nazwa);
+	fs.rename_file_v2(nazwa_pliku, nowa_nazwa);
 }
 
 void Shell::AP(std::string nazwa, std::string dane)
 {
-	//modu³_zarz¹dzania_plikami->dopisz_do_pliku(nazwa,dane);
+	fs.add_in_data_to_file_v2(nazwa, dane);
 }
 
 void Shell::OF(std::string nazwa, std::string dane)
 {
-	//modu³_zarz¹dzania_plikami->nadpisz_plik(nazwa,dane);
+	fs.overwrite_data_to_file_v2(nazwa, dane);
 }
 
 void Shell::RDF(std::string nazwa)
 {
-	//modu³_zarz¹dzania_plikami->czytaj_plik(nazwa);
+	fs.display_file_v2(nazwa);
 }
 
 void Shell::RDFF(std::string nazwa, int pozycja_poczatkowa, int ilosc_znakow)
 {
-	//modu³_zarz¹dzania_plikami->czytaj_fragment_pliku(nazwa, dane);
+	fs.display_part_of_file(nazwa, pozycja_poczatkowa, ilosc_znakow);
 }
 
 void Shell::EXIT()
@@ -242,13 +265,57 @@ void Shell::wybierz_metode(std::string komenda)
 	}
 	else if (polecenie[0] == "SRR")
 	{
-		if (polecenie.size() != 4 && numer(polecenie[1]) && numer(polecenie[2]))
+		if (polecenie.size() != 2)
 		{
 			cout << "Komenda zawiera nieprawidlowa liczbe argumentow" << endl;
 		}
 		else
 		{
-			SRR(stoi(polecenie[1]), stoi(polecenie[2]));
+			SRR();
+		}
+	}
+	else if (polecenie[0] == "PH")
+	{
+		if (polecenie.size() != 2)
+		{
+			cout << "Komenda zawiera nieprawidlowa liczbe argumentow" << endl;
+		}
+		else
+		{
+			PH();
+		}
+	}
+	else if (polecenie[0] == "LH")
+	{
+		if (polecenie.size() != 2)
+		{
+			cout << "Komenda zawiera nieprawidlowa liczbe argumentow" << endl;
+		}
+		else
+		{
+			LH();
+		}
+	}
+	else if (polecenie[0] == "LA")
+	{
+		if (polecenie.size() != 2)
+		{
+			cout << "Komenda zawiera nieprawidlowa liczbe argumentow" << endl;
+		}
+		else
+		{
+			LA();
+		}
+	}
+	else if (polecenie[0] == "PT")
+	{
+		if (polecenie.size() != 2)
+		{
+			cout << "Komenda zawiera nieprawidlowa liczbe argumentow" << endl;
+		}
+		else
+		{
+			PT();
 		}
 	}
 	else if (polecenie[0] == "LD")
@@ -270,7 +337,7 @@ void Shell::wybierz_metode(std::string komenda)
 		}
 		else
 		{
-			CF(polecenie[1]);
+			CFF(polecenie[1]);
 		}
 	}
 	else if (polecenie[0] == "DF")

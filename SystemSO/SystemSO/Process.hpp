@@ -36,11 +36,14 @@ public:
 	file_system files;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 	int staticPriority;
 	int dynamicPriority;
 	int average_sleep_time;
+=======
+>>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
 =======
 >>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
 	int whenStartWaiting, whenStartRunning;

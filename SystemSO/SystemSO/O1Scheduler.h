@@ -33,7 +33,11 @@ public:
 	int instructions_in_one_era;
 	int DEFAULT_PRIORITY = 120;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	PCB* pcb;
+=======
+	std::shared_ptr<PCB>pcb;
+>>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
 =======
 	std::shared_ptr<PCB>pcb;
 >>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
@@ -51,10 +55,14 @@ public:
 		
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	void add_new_process_to_expired(std::shared_ptr<PCB>giving_process);
 =======
 	void add_new_process_to_expired(const std::shared_ptr<PCB>&giving_process);
 >>>>>>> parent of 3efabb1... elele
+=======
+	void add_new_process_to_expired(std::shared_ptr<PCB>giving_process);
+>>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
 =======
 	void add_new_process_to_expired(std::shared_ptr<PCB>giving_process);
 >>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
@@ -63,6 +71,7 @@ public:
 
 	int number_of_first_biggest_priority_in_bitmap();
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	int time_slice_calculation(int some_priority);
 
@@ -79,12 +88,21 @@ public:
 
 	void move_process_to_expired_table(int new_dynamic_priority, std::shared_ptr<PCB>& pcb);				//przeniesienie procesu up³yniêciu przeznaczonego mu kwantu czasu
 
+=======
+	int time_slice_calculation(const std::shared_ptr<PCB>& giving_process);
+
+	void move_process_to_expired_table(int new_dynamic_priority, std::shared_ptr<PCB>& pcb);				//przeniesienie procesu up³yniêciu przeznaczonego mu kwantu czasu
+
+>>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
 	void calculating_dynamic_priority(int bonus, std::shared_ptr<PCB>& pcb);						//obliczenie nowego priorytetu
 
 	int calculating_bonus(const std::shared_ptr<PCB>&giving_process);				//obliczenie bonusu
 
 //	void RunProcess();
 //	void RunProcess(int);
+<<<<<<< HEAD
+>>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
+=======
 >>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
 };
 

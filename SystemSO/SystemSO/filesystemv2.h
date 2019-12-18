@@ -65,9 +65,10 @@ public:
 	const void display_file_v2(std::string file_name); //wyswietlamy zapisane w pliku
 	std::string return_file_as_string(std::string file_name);
 	const void display_part_of_file(std::string file_name,int start_pos, int nr_of_characters); //zwraca zadana liczbe znakow od pozycji poczatkowej
-
-
-	//Synhronizacja, Jan Witczak
+	std::string read_part_of_file(std::string file_name, int start_pos, int nr_of_characters); //zwraca zadana liczbe znakow od pozycji poczatkowej
+	char return_single_char(std::string file_name, int start_pos);
+																							   
+																							   //Synhronizacja, Jan Witczak
 	void open_file(std::string file_name_);
 	void close_file(std::string file_name_);
 

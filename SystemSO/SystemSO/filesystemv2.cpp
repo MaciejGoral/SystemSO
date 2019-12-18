@@ -893,6 +893,33 @@ const void file_system::display_part_of_file(std::string file_name, int start_po
 	delete[] buffer;
 
 }
+std::string file_system::read_part_of_file(std::string file_name, int start_pos, int nr_of_characters)
+{
+	std::fstream file;
+	std::string returning;
+	file.open(file_name.c_str(), std::ios::in);
+	file.seekg(start_pos, std::ios::beg);
+	char* buffer = new char[nr_of_characters];
+	file.read(buffer, nr_of_characters);
+	for (int i = 0; i < nr_of_characters; i++)
+	{
+		returning+= buffer[i];
+	}
+	file.close();
+	delete[] buffer;
+	return returning;
+}
+char file_system::return_single_char(std::string file_name, int start_pos)
+{
+	std::fstream file;
+	char returning;
+	file.open(file_name.c_str(), std::ios::in);
+	file.seekg(start_pos);
+	file.read(returning,1);
+	return returning;
+	file.close();
+
+}
 
 //Synchronizacja, Jan Witczak
 void file_system::open_file(std::string file_name_)
@@ -932,7 +959,6 @@ void file_system::close_file_reading(std::string file_name_)
 	{
 		inode_table[inode_index].Read_Count--;
 		if (inode_table[inode_index].Read_Count == 0) inode_table[inode_index].File_Mutex.signal();
-
 	}
 }
 //Synchronizacja.

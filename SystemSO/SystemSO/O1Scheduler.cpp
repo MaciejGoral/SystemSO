@@ -40,8 +40,13 @@ void O1Scheduler::change_era_function() {
 	}
 }
 
+<<<<<<< HEAD
 void O1Scheduler::add_new_process_to_expired(std::shared_ptr<PCB>giving_process) {
 	expired_array[DEFAULT_PRIORITY].push_back(giving_process);
+=======
+void O1Scheduler::add_new_process_to_expired(const std::shared_ptr<PCB>&giving_process) {
+	expired_array_pointer->at(giving_process->staticPriority).push_back(giving_process);
+>>>>>>> parent of 3efabb1... elele
 }
 
 

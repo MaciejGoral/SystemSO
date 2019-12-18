@@ -34,6 +34,17 @@ public:
 	processState state;
 	int instructionPointer;
 	file_system files;
+<<<<<<< HEAD
+=======
+
+	int staticPriority;
+	int dynamicPriority;
+	int average_sleep_time;
+	int whenStartWaiting, whenStartRunning;
+	int time_slice;
+
+	
+>>>>>>> parent of 3efabb1... elele
 	
 	PCB();
 	PCB(std::string processName, std::string fileName, int staticPriority);

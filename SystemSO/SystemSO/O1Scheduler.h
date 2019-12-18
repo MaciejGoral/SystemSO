@@ -45,7 +45,11 @@ public:
 	
 	void change_era_function();					//zamiana tablic w momencie, w którym tablica zadañ aktywnych jest pusta
 		
+<<<<<<< HEAD
 	void add_new_process_to_expired(std::shared_ptr<PCB>giving_process);
+=======
+	void add_new_process_to_expired(const std::shared_ptr<PCB>&giving_process);
+>>>>>>> parent of 3efabb1... elele
 
 	void creating_bitmap(std::shared_ptr<ProcessTable>table);
 

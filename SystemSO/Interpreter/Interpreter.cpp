@@ -2,7 +2,6 @@
 #include<iostream>
 #include<exception>
 
-int Interpreter::allInstructions = 0;
 Interpreter::Interpreter()
 {
 	commandFactory = std::make_unique<AssemblerCommandFactory>();
@@ -31,7 +30,6 @@ int Interpreter::step(int instructionPosition)
 			throw std::exception{ std::string{"Cannot load function " + command + "\n"}.c_str() };
 		}
 	}
-	++allInstructions;
 	result = functionList[command]->doCommand(pcb, instructionPosition + 1);
 	return result;
 }
@@ -61,7 +59,6 @@ int Interpreter::stepWithDebug(int instructionPosition)
 	else {
 		std::cout << "No next command\n";
 	}
-	++allInstructions;
 	return result;
 }
 

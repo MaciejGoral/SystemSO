@@ -1,20 +1,18 @@
 #include "filesystemv2.h"
 #include <math.h>
 #include <iostream>
-#include <fstream>
-#include <stdio.h>
 disk_drive::disk_drive()
 {
 	number_of_blocks = SIZE_OF_DISK / SIZE_OF_BLOCK; //obliczamy ilosc blokow
 	number_of_free_blocks = number_of_blocks;
-	std::vector<char> negative(SIZE_OF_BLOCK, -1); //blok wype³niony zerami
+	std::vector<char> negative(SIZE_OF_BLOCK,-1); //blok wype³niony zerami
 	for (int i = 0; i < number_of_blocks; i++)
 	{
-		disk_space.push_back(negative); 
-		free_drive_blocks.push_back(1); 
+		disk_space.push_back(negative); //wypelniamy vector vectorem charow o wartosci -1
+		free_drive_blocks.push_back(1); // przypisujemy vectorowi reprezentujacemu wolne wektory wartosc 1-bloki wolne
 	}
 }
-inode disk_drive::initialize_inode(std::string file_name) 
+inode disk_drive::initialize_inode(std::string file_name) //tworzymy iwezel o danej nazwie
 {
 	inode initialized;
 	initialized.file_name = file_name;
@@ -36,7 +34,7 @@ const int disk_drive::search_inode(std::string file_name)
 {
 	for (int i = 0; i < inode_table.size(); i++)
 	{
-		if (inode_table[i].file_name == file_name)
+		if (inode_table[i].file_name == file_name) 
 		{
 			return i; //gdy znajdziemy plik o takiej nazwie zwracamy jego indeks
 		}
@@ -55,9 +53,9 @@ const bool disk_drive::is_enough_size(std::string data)
 		return true;
 	}
 }
-const bool disk_drive::is_enough_size(std::string data, int old_file_size) 
+const bool disk_drive::is_enough_size(std::string data,int old_file_size) //uzywane do przeliczenia miejsca w przypadku nadpisywania pliku
 {
-	int needed_blocks = ceil((float)(data.length() / (float)SIZE_OF_BLOCK)) - ceil((float)(old_file_size / (float)SIZE_OF_BLOCK)); 
+	int needed_blocks = ceil((float)(data.length() / (float)SIZE_OF_BLOCK))- ceil((float)(old_file_size / (float)SIZE_OF_BLOCK)); //liczba potrzebnych blokow aby zapisac plik - liczba blokow ktora zyskalismy usuwajac stary plik
 	if (number_of_free_blocks < needed_blocks)
 	{
 		return false;
@@ -70,7 +68,7 @@ const bool disk_drive::is_enough_size(std::string data, int old_file_size)
 
 const unsigned int disk_drive::search_free_block() //zwraca indeks pierwszego napotkanego bloku mozliwego do zapisu
 {
-	for (int i = 0; i < free_drive_blocks.size(); i++)
+	for (int i = 0; i <free_drive_blocks.size(); i++)
 	{
 		if (free_drive_blocks[i] == 1)
 		{
@@ -81,7 +79,7 @@ const unsigned int disk_drive::search_free_block() //zwraca indeks pierwszego na
 const std::vector<int> disk_drive::search_free_blocks(int number_of_searched_blocks) //zwraca  wektor z indeksami n pierwszych blokow gotowych do zapisu
 {
 	std::vector<int> returning_vector;
-	for (int i = 0, j = 0; (i < SIZE_OF_BLOCK) and (j < number_of_searched_blocks); i++)
+	for (int i = 0,j=0;(i<SIZE_OF_BLOCK) and (j< number_of_searched_blocks); i++)
 	{
 		if (free_drive_blocks[i] == 1)
 		{
@@ -90,23 +88,23 @@ const std::vector<int> disk_drive::search_free_blocks(int number_of_searched_blo
 		}
 	}
 	return returning_vector;
-}
-const void disk_drive::print_inode_catalogue() 
-{	
+} 
+const void disk_drive::print_inode_catalogue() //wyswietla jakie pliki znajduja sie w inode_table oraz ich rozmiar w bajtach
+{
 	std::cout << std::endl << "Displaying files on disk" << std::endl;
 	for (int i = 0; i < inode_table.size(); i++)
 	{
 		std::cout << "File name: " << inode_table[i].file_name << " File size: " << inode_table[i].file_size << std::endl;
 	}
 }
-const void disk_drive::print_drive() 
+const void disk_drive::print_drive() //wypisujemy dysk z podzialem na bloki
 {
 	for (int i = 0; i < number_of_blocks; i++)
 	{
 		std::cout << std::endl << "NEW BLOCK" << std::endl;
 		for (int j = 0; j < SIZE_OF_BLOCK; j++)
 		{
-			std::cout << (int)disk_space[i][j];
+			std::cout <<(int) disk_space[i][j];
 		}
 	}
 	std::cout << std::endl;
@@ -140,7 +138,7 @@ const void disk_drive::display_occupied_blocks(std::string file_name) //wyswietl
 	}
 
 }
-const void disk_drive::display_all_information_about_all_files()
+const void disk_drive::display_all_information_about_all_files() 
 {
 	std::cout << std::endl << "Displaying files on disk" << std::endl;
 	for (int i = 0; i < inode_table.size(); i++)
@@ -162,7 +160,8 @@ void file_system::create_file(std::string file_name)
 	int inode_index = search_inode(file_name);
 	if (inode_index != -1) //jezeli plik o danej nazwie istnieje
 	{
-		std::cout << "File named " << file_name << " already exists" << std::endl;
+	    std::cout << "File named " << file_name << " already exists" << std::endl;
+		
 	}
 	else
 	{
@@ -170,27 +169,9 @@ void file_system::create_file(std::string file_name)
 		disk_drive::inode_table.push_back(helping_inode);
 		std::cout << "File " << file_name << " created" << std::endl;
 	}
-}
-void file_system::create_file_v2(std::string file_name)
-{
-	int inode_index = search_inode(file_name);
-	if (inode_index != -1) //jezeli plik o danej nazwie istnieje
-	{
-		std::cout << "File named " << file_name << " already exists" << std::endl;
-	}
-	else
-	{
-		inode helping_inode = initialize_inode(file_name);
-		disk_drive::inode_table.push_back(helping_inode);
-		std::fstream file; //tworzymy plik fizycznie
-		file.open(file_name, std::fstream::in);
-		file.close();
-		std::cout << "File " << file_name << " created" << std::endl;
-	}
-	
 }
 
-void file_system::rename_file(std::string old_file_name, std::string new_file_name)
+void file_system::rename_file(std::string old_file_name, std::string new_file_name) 
 {
 	int inode_index = search_inode(old_file_name);
 	if (inode_index != -1)
@@ -200,23 +181,7 @@ void file_system::rename_file(std::string old_file_name, std::string new_file_na
 	}
 	else
 	{
-		std::cout << "File " << old_file_name << " doesn't exists" << std::endl;
-	}
-
-}
-void file_system::rename_file_v2(std::string old_file_name, std::string new_file_name)
-{
-	int inode_index = search_inode(old_file_name);
-	if (inode_index != -1)
-	{
-		inode_table[inode_index].file_name = new_file_name;
-		rename(old_file_name.c_str(), new_file_name.c_str()); //zmieniamy nazwe fizycznego pliku
-		std::cout << "File " << old_file_name << " renamed to " << new_file_name << std::endl;
-
-	}
-	else
-	{
-		std::cout << "File " << old_file_name << " doesn't exists" << std::endl;
+		std::cout << "File " << old_file_name << " doesn't exists"<< std::endl;
 	}
 
 }
@@ -238,10 +203,10 @@ void file_system::add_in_data_to_file(std::string file_name, std::string data)
 					}
 					number_of_free_blocks--;
 					inode_table[inode_index].occupied_blocks_size++;
-					inode_table[inode_index].first_data_block_index = free_block; 
-					inode_table[inode_index].first_data_block = &disk_space[free_block];
+					inode_table[inode_index].first_data_block_index = free_block; //dodajemy indeks pierwszego bloku
+					inode_table[inode_index].first_data_block = &disk_space[free_block]; //przypisujemy do wskaznika na 1 blok adres bloku do ktorego wpisalismy dane
 					inode_table[inode_index].file_size += data.length();
-					free_drive_blocks[free_block] = 0; //ustawiamy odpowiednia pozycje we free_drive_blocks na 0- blok jest zajety
+					free_drive_blocks[free_block]=0; //ustawiamy odpowiednia pozycje we free_drive_blocks na 0- blok jest zajety
 				}
 				else if (inode_table[inode_index].second_data_block == nullptr) //je¿eli pierwszy blok jest zapisany zapisujemy do drugiego
 				{
@@ -252,7 +217,7 @@ void file_system::add_in_data_to_file(std::string file_name, std::string data)
 					number_of_free_blocks--;
 					inode_table[inode_index].occupied_blocks_size++;
 					inode_table[inode_index].second_data_block_index = free_block;
-					inode_table[inode_index].second_data_block = &disk_space[free_block]; 
+					inode_table[inode_index].second_data_block = &disk_space[free_block]; //przypisujemy do wskaznika na 1 blok adres bloku do ktorego wpisalismy dane
 					inode_table[inode_index].file_size += data.length();
 					free_drive_blocks[free_block] = 0; //ustawiamy odpowiednia pozycje we free_drive_blocks na 0- blok jest zajety
 				}
@@ -264,208 +229,10 @@ void file_system::add_in_data_to_file(std::string file_name, std::string data)
 					}
 					number_of_free_blocks--;
 					inode_table[inode_index].occupied_blocks_size++;
-					inode_table[inode_index].index_block.push_back(free_block); 
-					inode_table[inode_index].file_size += data.length();
-					free_drive_blocks[free_block] = 0; 
-				}
-			}
-			else if (data.length() <= 2 * SIZE_OF_BLOCK) //kiedy dane zajmuj¹ 1 blok <dane<=2bloki
-			{
-				std::vector<int> free_blocks = search_free_blocks(2);
-				if ((inode_table[inode_index].first_data_block == nullptr) and (inode_table[inode_index].second_data_block == nullptr)) //je¿eli w pliku nie ma nic zapisanego
-				{
-					int bytes_counter = 0; //zmienna pomocnicza do obslugi data
-					for (int i = 0; i < free_blocks.size(); i++) 
-					{
-						for (int j = 0; j < SIZE_OF_BLOCK and bytes_counter < data.size(); j++, bytes_counter++) //gdy skonczy sie nam miejsce w bloku lub skoncza sie dane do zapisania
-						{
-							disk_space[free_blocks[i]][j] = data.at(bytes_counter);
-						}
-						number_of_free_blocks--;
-						inode_table[inode_index].occupied_blocks_size++;
-						free_drive_blocks[free_blocks[i]] = 0; 
-					}
-					inode_table[inode_index].first_data_block_index = free_blocks[0];
-					inode_table[inode_index].first_data_block = &disk_space[free_blocks[0]];
-					inode_table[inode_index].second_data_block = &disk_space[free_blocks[1]];
-					inode_table[inode_index].second_data_block_index = free_blocks[1];
-					inode_table[inode_index].file_size += data.length();
-				}
-				else if (inode_table[inode_index].second_data_block == nullptr) 
-				{
-					int bytes_counter = 0; 
-					for (int i = 0; i < free_blocks.size(); i++) 
-					{
-						for (int j = 0; j < SIZE_OF_BLOCK and bytes_counter < data.size(); j++, bytes_counter++) 
-						{
-							disk_space[free_blocks[i]][j] = data.at(bytes_counter);
-						}
-						number_of_free_blocks--;
-						inode_table[inode_index].occupied_blocks_size++;
-						free_drive_blocks[free_blocks[i]] = 0; 
-					}
-					inode_table[inode_index].second_data_block_index = free_blocks[0];
-					inode_table[inode_index].second_data_block = &disk_space[free_blocks[0]]; 
-					inode_table[inode_index].index_block.push_back(free_blocks[1]);
-					inode_table[inode_index].file_size += data.length();
-				}
-				else //je¿eli bloki szybkiego dostepu s¹ ju¿ zajête
-				{
-					int bytes_counter = 0; 
-					for (int i = 0; i < free_blocks.size(); i++) 
-					{
-						for (int j = 0; j < SIZE_OF_BLOCK and bytes_counter < data.size(); j++, bytes_counter++) 
-						{
-							disk_space[free_blocks[i]][j] = data.at(bytes_counter);
-						}
-						number_of_free_blocks--;
-						inode_table[inode_index].occupied_blocks_size++;
-						free_drive_blocks[free_blocks[i]] = 0; 
-						inode_table[inode_index].index_block.push_back(free_blocks[i]); 
-					}
-					inode_table[inode_index].file_size += data.length();
-				}
-			}
-			else if (data.length() > 2 * SIZE_OF_BLOCK)
-			{
-				std::vector<int> free_blocks = search_free_blocks(ceil((float)(data.length() / (float)SIZE_OF_BLOCK))); //wyszukujemy ile bloków potrzebujemy
-				if ((inode_table[inode_index].first_data_block == nullptr) and (inode_table[inode_index].second_data_block == nullptr)) //je¿eli w pliku nie ma nic zapisanego
-				{
-					int bytes_counter = 0; 
-					for (int i = 0; i < free_blocks.size(); i++) 
-					{
-						for (int j = 0; j < SIZE_OF_BLOCK and bytes_counter < data.size(); j++, bytes_counter++)
-						{
-							disk_space[free_blocks[i]][j] = data.at(bytes_counter);
-						}
-						number_of_free_blocks--;
-						inode_table[inode_index].occupied_blocks_size++;
-						free_drive_blocks[free_blocks[i]] = 0;
-						if (i == 0) //dla pierwszego indeksowego
-						{
-							inode_table[inode_index].first_data_block_index = free_blocks[i];
-							inode_table[inode_index].first_data_block = &disk_space[free_blocks[i]];
-						}
-						else if (i == 1) //dla drugiego indeksowego
-						{
-							inode_table[inode_index].second_data_block_index = free_blocks[i];
-							inode_table[inode_index].second_data_block = &disk_space[free_blocks[i]];
-						}
-						else
-						{
-							inode_table[inode_index].index_block.push_back(free_blocks[i]);
-						}
-					}
-					inode_table[inode_index].file_size += data.length();
-				}
-				else if (inode_table[inode_index].second_data_block == nullptr) 
-				{
-					int bytes_counter = 0; 
-					for (int i = 0; i < free_blocks.size(); i++) 
-					{
-						for (int j = 0; j < SIZE_OF_BLOCK and bytes_counter < data.size(); j++, bytes_counter++)
-						{
-							disk_space[free_blocks[i]][j] = data.at(bytes_counter);
-						}
-						number_of_free_blocks--;
-						inode_table[inode_index].occupied_blocks_size++;
-						free_drive_blocks[free_blocks[i]] = 0;
-					}
-					inode_table[inode_index].second_data_block = &disk_space[free_blocks[0]];
-					inode_table[inode_index].second_data_block_index = free_blocks[0];
-					for (int i = 1; i < free_blocks.size(); i++) //poniewaz pierwszy wolny blok ju¿ przypisaliœmy
-					{
-						inode_table[inode_index].index_block.push_back(free_blocks[i]); 
-					}
-					inode_table[inode_index].file_size += data.length();
-				}
-				else //je¿eli bloki szybkiego dostepu s¹ ju¿ zajête
-				{
-					int bytes_counter = 0; 
-					for (int i = 0; i < free_blocks.size(); i++) 
-					{
-						for (int j = 0; j < SIZE_OF_BLOCK and bytes_counter < data.size(); j++, bytes_counter++)
-						{
-							disk_space[free_blocks[i]][j] = data.at(bytes_counter);
-						}
-						number_of_free_blocks--;
-						inode_table[inode_index].occupied_blocks_size++;
-						free_drive_blocks[free_blocks[i]] = 0;
-					}
-					for (int i = 0; i < free_blocks.size(); i++)
-					{
-						inode_table[inode_index].index_block.push_back(free_blocks[i]); 
-						inode_table[inode_index].file_size += data.length();
-					}
-				}
-			}
-		}
-		else
-		{
-			std::cout << "Not enough free space on disk. Delete other files" << std::endl;
-		}
-	}
-	else
-	{
-		std::cout << "File " << file_name << " doesn't exists " << std::endl;
-	}
-}
-void file_system::add_in_data_to_file_v2(std::string file_name, std::string data)
-{
-	std::fstream file;
-	file.open(file_name.c_str(), std::ios::out|std::ios::app);
-	int inode_index = search_inode(file_name);
-	if (inode_index != -1)
-	{
-		if (file.is_open())
-		{
-		
-		if (is_enough_size(data))
-		{
-			if (data.length() <= SIZE_OF_BLOCK) //dane zajmuj¹ce mniej ni¿ jeden blok
-			{
-				int free_block = search_free_block();
-				if (inode_table[inode_index].first_data_block == nullptr) //je¿eli w pliku nie ma nic zapisanego
-				{
-					for (int i = 0; i < data.length(); i++)
-					{
-						disk_space[free_block][i] = data.at(i);
-						file << data.at(i); //zapisujemy fizycznie do pliku
-					}
-					number_of_free_blocks--;
-					inode_table[inode_index].occupied_blocks_size++;
-					inode_table[inode_index].first_data_block_index = free_block;
-					inode_table[inode_index].first_data_block = &disk_space[free_block];
+					inode_table[inode_index].index_block.push_back(free_block); //zapisujemy blok w ktorym zapisalismy dane do vectoru indeksów zapisanych blokow przez plik
 					inode_table[inode_index].file_size += data.length();
 					free_drive_blocks[free_block] = 0; //ustawiamy odpowiednia pozycje we free_drive_blocks na 0- blok jest zajety
 				}
-				else if (inode_table[inode_index].second_data_block == nullptr) //je¿eli pierwszy blok jest zapisany zapisujemy do drugiego
-				{
-					for (int i = 0; i < data.length(); i++)
-					{
-						disk_space[free_block][i] = data.at(i);
-						file << data.at(i);
-					}
-					number_of_free_blocks--;
-					inode_table[inode_index].occupied_blocks_size++;
-					inode_table[inode_index].second_data_block_index = free_block;
-					inode_table[inode_index].second_data_block = &disk_space[free_block];
-					inode_table[inode_index].file_size += data.length();
-					free_drive_blocks[free_block] = 0; 
-				}
-				else 
-				{
-					for (int i = 0; i < data.length(); i++)
-					{
-						disk_space[free_block][i] = data.at(i);
-						file << data.at(i);
-					}
-					number_of_free_blocks--;
-					inode_table[inode_index].occupied_blocks_size++;
-					inode_table[inode_index].index_block.push_back(free_block);
-					inode_table[inode_index].file_size += data.length();
-					free_drive_blocks[free_block] = 0;
-				}
 			}
 			else if (data.length() <= 2 * SIZE_OF_BLOCK) //kiedy dane zajmuj¹ 1 blok <dane<=2bloki
 			{
@@ -473,135 +240,129 @@ void file_system::add_in_data_to_file_v2(std::string file_name, std::string data
 				if ((inode_table[inode_index].first_data_block == nullptr) and (inode_table[inode_index].second_data_block == nullptr)) //je¿eli w pliku nie ma nic zapisanego
 				{
 					int bytes_counter = 0; //zmienna pomocnicza do obslugi data
-					for (int i = 0; i < free_blocks.size(); i++)
+					for (int i = 0; i < free_blocks.size(); i++) //petla do obslugi blokow
 					{
 						for (int j = 0; j < SIZE_OF_BLOCK and bytes_counter < data.size(); j++, bytes_counter++) //gdy skonczy sie nam miejsce w bloku lub skoncza sie dane do zapisania
 						{
 							disk_space[free_blocks[i]][j] = data.at(bytes_counter);
-							file << data.at(bytes_counter);
 						}
 						number_of_free_blocks--;
 						inode_table[inode_index].occupied_blocks_size++;
-						free_drive_blocks[free_blocks[i]] = 0;
+						free_drive_blocks[free_blocks[i]] = 0; //ustawiamy odpowiednia pozycje we free_drive_blocks na 0- blok jest zajety
 					}
 					inode_table[inode_index].first_data_block_index = free_blocks[0];
 					inode_table[inode_index].first_data_block = &disk_space[free_blocks[0]];
 					inode_table[inode_index].second_data_block = &disk_space[free_blocks[1]];
 					inode_table[inode_index].second_data_block_index = free_blocks[1];
-					inode_table[inode_index].file_size += data.length();
-				}
-				else if (inode_table[inode_index].second_data_block == nullptr)
-				{
-					int bytes_counter = 0;
-					for (int i = 0; i < free_blocks.size(); i++)
-					{
-						for (int j = 0; j < SIZE_OF_BLOCK and bytes_counter < data.size(); j++, bytes_counter++)
-						{
-							disk_space[free_blocks[i]][j] = data.at(bytes_counter);
-							file << data.at(bytes_counter);
-						}
-						number_of_free_blocks--;
-						inode_table[inode_index].occupied_blocks_size++;
-						free_drive_blocks[free_blocks[i]] = 0;
-					}
-					inode_table[inode_index].second_data_block_index = free_blocks[0];
-					inode_table[inode_index].second_data_block = &disk_space[free_blocks[0]];
-					inode_table[inode_index].index_block.push_back(free_blocks[1]);
-					inode_table[inode_index].file_size += data.length();
-				}
-				else 
-				{
-					int bytes_counter = 0;
-					for (int i = 0; i < free_blocks.size(); i++)
-					{
-						for (int j = 0; j < SIZE_OF_BLOCK and bytes_counter < data.size(); j++, bytes_counter++)
-						{
-							disk_space[free_blocks[i]][j] = data.at(bytes_counter);
-							file << data.at(bytes_counter);
-						}
-						number_of_free_blocks--;
-						inode_table[inode_index].occupied_blocks_size++;
-						free_drive_blocks[free_blocks[i]] = 0; 
-						inode_table[inode_index].index_block.push_back(free_blocks[i]); 
-					}
-					inode_table[inode_index].file_size += data.length();
-				}
-			}
-			else if (data.length() > 2 * SIZE_OF_BLOCK)
-			{
-				std::vector<int> free_blocks = search_free_blocks(ceil((float)(data.length() / (float)SIZE_OF_BLOCK))); //wyszukujemy ile bloków potrzebujemy
-				if ((inode_table[inode_index].first_data_block == nullptr) and (inode_table[inode_index].second_data_block == nullptr)) //je¿eli w pliku nie ma nic zapisanego
-				{
-					int bytes_counter = 0; 
-					for (int i = 0; i < free_blocks.size(); i++) 
-					{
-						for (int j = 0; j < SIZE_OF_BLOCK and bytes_counter < data.size(); j++, bytes_counter++)
-						{
-							disk_space[free_blocks[i]][j] = data.at(bytes_counter);
-							file << data.at(bytes_counter);
-						}
-						number_of_free_blocks--;
-						inode_table[inode_index].occupied_blocks_size++;
-						free_drive_blocks[free_blocks[i]] = 0;
-						if (i == 0) //dla pierwszego indeksowego
-						{
-							inode_table[inode_index].first_data_block_index = free_blocks[i];
-							inode_table[inode_index].first_data_block = &disk_space[free_blocks[i]];
-						}
-						else if (i == 1) //dla drugiego indeksowego
-						{
-							inode_table[inode_index].second_data_block_index = free_blocks[i];
-							inode_table[inode_index].second_data_block = &disk_space[free_blocks[i]];
-						}
-						else
-						{
-							inode_table[inode_index].index_block.push_back(free_blocks[i]);
-						}
-					}
 					inode_table[inode_index].file_size += data.length();
 				}
 				else if (inode_table[inode_index].second_data_block == nullptr) //je¿eli pierwszy blok jest zapisany zapisujemy do drugiego i indeksowego
 				{
-					int bytes_counter = 0; 
-					for (int i = 0; i < free_blocks.size(); i++) 
+					int bytes_counter = 0; //zmienna pomocnicza do obslugi data
+					for (int i = 0; i< free_blocks.size(); i++) ////petla do obslugi blokow
 					{
-						for (int j = 0; j < SIZE_OF_BLOCK and bytes_counter < data.size(); j++, bytes_counter++)
+						for (int j = 0; j < SIZE_OF_BLOCK and bytes_counter < data.size(); j++, bytes_counter++) // j.w
 						{
-							disk_space[free_blocks[i]][j] = data.at(bytes_counter);
-							file << data.at(bytes_counter);
+							disk_space[free_blocks[i]][j] = data.at(bytes_counter); 
 						}
 						number_of_free_blocks--;
 						inode_table[inode_index].occupied_blocks_size++;
-						free_drive_blocks[free_blocks[i]] = 0;
+						free_drive_blocks[free_blocks[i]] = 0; //ustawiamy odpowiednia pozycje we free_drive_blocks na 0- blok jest zajety
 					}
-					inode_table[inode_index].second_data_block = &disk_space[free_blocks[0]];
 					inode_table[inode_index].second_data_block_index = free_blocks[0];
-					for (int i = 1; i < free_blocks.size(); i++) //poniewaz pierwszy wolny blok ju¿ przypisaliœmy
-					{
-						inode_table[inode_index].index_block.push_back(free_blocks[i]); 
-					}
+					inode_table[inode_index].second_data_block = &disk_space[free_blocks[0]]; //i przypisujemy blok do i wêz³a
+					inode_table[inode_index].index_block.push_back(free_blocks[1]); //zapisujemy 2blok w ktorym zapisalismy dane do vectoru indeksów zapisanych blokow przez plik
 					inode_table[inode_index].file_size += data.length();
 				}
 				else //je¿eli bloki szybkiego dostepu s¹ ju¿ zajête
 				{
-					int bytes_counter = 0; 
-					for (int i = 0; i < free_blocks.size(); i++) 
+					int bytes_counter = 0; //zmienna pomocnicza do obslugi data
+					for (int i = 0; i < free_blocks.size(); i++) // jw
 					{
-						for (int j = 0; j < SIZE_OF_BLOCK and bytes_counter < data.size(); j++, bytes_counter++)
+						for (int j = 0; j < SIZE_OF_BLOCK and bytes_counter < data.size(); j++, bytes_counter++) // j.w
 						{
 							disk_space[free_blocks[i]][j] = data.at(bytes_counter);
-							file << data.at(bytes_counter);
 						}
 						number_of_free_blocks--;
 						inode_table[inode_index].occupied_blocks_size++;
-						free_drive_blocks[free_blocks[i]] = 0;
+						free_drive_blocks[free_blocks[i]] = 0; //ustawiamy odpowiednia pozycje we free_drive_blocks na 0- blok jest zajety
+						inode_table[inode_index].index_block.push_back(free_blocks[i]); //zapisujemy indeksy blokow nie mieszczacych sie w 2 pierwszych blokach do tablicy
 					}
-					for (int i = 0; i < free_blocks.size(); i++)
+					inode_table[inode_index].file_size += data.length();
+				}
+			}
+			else if (data.length() > 2 * SIZE_OF_BLOCK)
+			{
+			std::vector<int> free_blocks = search_free_blocks(ceil((float)(data.length() / (float)SIZE_OF_BLOCK))); //wyszukujemy ile bloków potrzebujemy
+			if ((inode_table[inode_index].first_data_block == nullptr) and (inode_table[inode_index].second_data_block == nullptr)) //je¿eli w pliku nie ma nic zapisanego
+			{
+				int bytes_counter = 0; // jw
+				for (int i = 0; i < free_blocks.size(); i++) //jw
+				{
+					for (int j = 0; j < SIZE_OF_BLOCK and bytes_counter < data.size(); j++, bytes_counter++)
 					{
-						inode_table[inode_index].index_block.push_back(free_blocks[i]); 
-						inode_table[inode_index].file_size += data.length();
+						disk_space[free_blocks[i]][j] = data.at(bytes_counter);
+					}
+					number_of_free_blocks--;
+					inode_table[inode_index].occupied_blocks_size++;
+					free_drive_blocks[free_blocks[i]] = 0;
+					if (i == 0) //dla pierwszego indeksowego
+					{
+						inode_table[inode_index].first_data_block_index = free_blocks[i];
+						inode_table[inode_index].first_data_block = &disk_space[free_blocks[i]];
+					}
+					else if (i == 1) //dla drugiego indeksowego
+					{
+						inode_table[inode_index].second_data_block_index = free_blocks[i];
+						inode_table[inode_index].second_data_block = &disk_space[free_blocks[i]];
+					}
+					else
+					{
+						inode_table[inode_index].index_block.push_back(free_blocks[i]);
 					}
 				}
+				inode_table[inode_index].file_size += data.length();
+			}
+			else if (inode_table[inode_index].second_data_block == nullptr) //je¿eli pierwszy blok jest zapisany zapisujemy do drugiego i indeksowego
+			{
+				int bytes_counter = 0; //jw
+				for (int i = 0; i < free_blocks.size(); i++) //jw
+				{
+					for (int j = 0; j < SIZE_OF_BLOCK and bytes_counter < data.size(); j++, bytes_counter++)
+					{
+						disk_space[free_blocks[i]][j] = data.at(bytes_counter);
+					}
+					number_of_free_blocks--;
+					inode_table[inode_index].occupied_blocks_size++;
+					free_drive_blocks[free_blocks[i]] = 0;
+				}
+				inode_table[inode_index].second_data_block = &disk_space[free_blocks[0]];
+				inode_table[inode_index].second_data_block_index = free_blocks[0];
+				for (int i = 1; i < free_blocks.size(); i++) //poniewaz pierwszy wolny blok ju¿ przypisaliœmy
+				{
+					inode_table[inode_index].index_block.push_back(free_blocks[i]); //zapisujemy indeksy blokow nie mieszczacych sie w 2 pierwszych blokach do tablicy
+				}
+				inode_table[inode_index].file_size += data.length();
+			}
+			else //je¿eli bloki szybkiego dostepu s¹ ju¿ zajête
+			{
+				int bytes_counter = 0;  //jw
+				for (int i = 0; i < free_blocks.size(); i++) //jw
+				{
+					for (int j = 0; j < SIZE_OF_BLOCK and bytes_counter < data.size(); j++, bytes_counter++)
+					{
+						disk_space[free_blocks[i]][j] = data.at(bytes_counter);
+					}
+					number_of_free_blocks--;
+					inode_table[inode_index].occupied_blocks_size++;
+					free_drive_blocks[free_blocks[i]] = 0;
+				}
+				for (int i = 0; i < free_blocks.size(); i++)
+				{
+					inode_table[inode_index].index_block.push_back(free_blocks[i]); //poniewaz bloki wskaznikowe sa zajete zapisujemy do indeksowych
+					inode_table[inode_index].file_size += data.length();
+				}
+			}
 			}
 		}
 		else
@@ -611,15 +372,8 @@ void file_system::add_in_data_to_file_v2(std::string file_name, std::string data
 	}
 	else
 	{
-	std::cout << "Error while opening file" << std::endl;
-	}
-	}
-	else
-	{
 		std::cout << "File " << file_name << " doesn't exists " << std::endl;
 	}
-	std::cout << "Data added to file: " << file_name << std::endl;
-	file.close(); //zamykamy plik
 }
 
 void file_system::free_up_block_for_index(int block)
@@ -630,8 +384,8 @@ void file_system::free_up_block_for_index(int block)
 	}
 	free_drive_blocks[block] = 1;//zmieniamy wartosc w wektorze tablic na 1- blok gotowy do zapisu
 	number_of_free_blocks++;
-}
-void file_system::free_up_block_for_pointer(std::vector<char>* pointer, int pointer_block_index)
+} 
+void file_system::free_up_block_for_pointer(std::vector<char>* pointer,int pointer_block_index)
 {
 
 	for (int j = 0; j < SIZE_OF_BLOCK; j++)
@@ -668,46 +422,16 @@ void file_system::delete_file(std::string file_name)
 	{
 		std::cout << "File " << file_name << " doesn't exists " << std::endl;
 	}
+	
 
-
-}
-void file_system::delete_file_v2(std::string file_name)
-{
-	int inode_index = search_inode(file_name);
-	if (inode_index != -1)
-	{
-		//czyscimy bloki na dysku
-		if (inode_table[inode_index].first_data_block != nullptr)
-		{
-			free_up_block_for_pointer(inode_table[inode_index].first_data_block, inode_table[inode_index].first_data_block_index); //czyscimy 1 blok "szybkiego dostepu"
-		}
-		if (inode_table[inode_index].second_data_block != nullptr)
-		{
-			free_up_block_for_pointer(inode_table[inode_index].second_data_block, inode_table[inode_index].second_data_block_index); //czyscimy 2 blok "szybkiego dostepu"
-		}
-		if (!inode_table[inode_index].index_block.empty())
-		{
-			for (int i = 0, j = 0; i < inode_table[inode_index].index_block.size(); i++)
-			{
-				free_up_block_for_index(inode_table[inode_index].index_block[i]); //czyscimy bloki indeksowe
-			}
-		}
-		inode_table.erase(inode_table.begin() + inode_index);//usuwamy iwezel
-		remove(file_name.c_str()); //usuwamy plik
-	}
-	else
-	{
-		std::cout << "File " << file_name << " doesn't exists " << std::endl;
-	}
-}
-
+} 
 void file_system::overwrite_data_to_file(std::string file_name, std::string data)
 {
 	//wpierw usuwamy dane z dysku
 	int inode_index = search_inode(file_name);
 	if (inode_index != -1)
 	{
-		if (is_enough_size(data, inode_table[inode_index].file_size))
+		if (is_enough_size(data,inode_table[inode_index].file_size))
 		{
 			//czyscimy bloki na dysku
 			if (inode_table[inode_index].first_data_block != nullptr)
@@ -743,54 +467,7 @@ void file_system::overwrite_data_to_file(std::string file_name, std::string data
 		std::cout << "File " << file_name << " doesn't exists " << std::endl;
 	}
 
-}
-void file_system::overwrite_data_to_file_v2(std::string file_name, std::string data)
-{
-		//wpierw usuwamy dane z dysku
-		int inode_index = search_inode(file_name);
-		if (inode_index != -1)
-		{
-			if (is_enough_size(data, inode_table[inode_index].file_size))
-			{
-				//czyscimy bloki na dysku
-				if (inode_table[inode_index].first_data_block != nullptr)
-				{
-					free_up_block_for_pointer(inode_table[inode_index].first_data_block, inode_table[inode_index].first_data_block_index); //czyscimy 1 blok "szybkiego dostepu"
-				}
-				if (inode_table[inode_index].second_data_block != nullptr)
-				{
-					free_up_block_for_pointer(inode_table[inode_index].second_data_block, inode_table[inode_index].second_data_block_index); //czyscimy 2 blok "szybkiego dostepu"
-				}
-				if (!inode_table[inode_index].index_block.empty())
-				{
-					for (int i = 0, j = 0; i < inode_table[inode_index].index_block.size(); i++)
-					{
-						free_up_block_for_index(inode_table[inode_index].index_block[i]); //czyscimy bloki indeksowe
-					}
-				}
-				inode_table[inode_index].file_size = 0;
-				inode_table[inode_index].first_data_block = nullptr;
-				inode_table[inode_index].second_data_block = nullptr;
-				inode_table[inode_index].first_data_block_index = -1;
-				inode_table[inode_index].second_data_block_index = -1;
-				inode_table[inode_index].index_block.clear();
-
-				delete_file_v2(file_name);
-				create_file_v2(file_name);
-
-
-				add_in_data_to_file_v2(file_name, data); //bo usunieciu starych danych pliku i wyzerowaniu jego meta-daty dopisujemy do pliku nowe informacje
-			}
-			else
-			{
-				std::cout << "Not enough free space on disk. Delete other files" << std::endl;
-			}
-		}
-		else
-		{
-			std::cout << "File " << file_name << " doesn't exists " << std::endl;
-		}
-}
+} 
 const void file_system::display_file(std::string file_name)
 {
 	int inode_index = search_inode(file_name);
@@ -807,15 +484,15 @@ const void file_system::display_file(std::string file_name)
 				std::cout << static_cast<char>((*inode_table[inode_index].first_data_block)[i]); //wyswietlamy zawartosc
 			}
 		}
-		if (inode_table[inode_index].second_data_block != nullptr)
+		if (inode_table[inode_index].second_data_block != nullptr)//jezeli drugi blok wskaznikowy nie jest pusty
 		{
 			for (int i = 0; i < SIZE_OF_BLOCK; i++)
 			{
-				if ((*inode_table[inode_index].first_data_block)[i] == -1) 
+				if ((*inode_table[inode_index].first_data_block)[i] == -1) //gdy dojdziemy do niezapisanego elementu bloku przerywamy
 				{
 					break;
 				}
-				std::cout << static_cast<char>((*inode_table[inode_index].second_data_block)[i]); 
+				std::cout << static_cast<char>((*inode_table[inode_index].second_data_block)[i]); //wyswietlamy zawartosc
 			}
 		}
 		if (!inode_table[inode_index].index_block.empty()) //je¿eli vector blokow indeksowych nie jest pusty
@@ -824,11 +501,11 @@ const void file_system::display_file(std::string file_name)
 			{
 				for (int j = 0; j < SIZE_OF_BLOCK; j++)
 				{
-					if (disk_space[inode_table[inode_index].index_block[i]][j] == -1) 
+					if (disk_space[inode_table[inode_index].index_block[i]][j] == -1) //gdy dojdziemy do niezapisanego elementu bloku przerywamy
 					{
 						break;
 					}
-					std::cout << static_cast<char>(disk_space[inode_table[inode_index].index_block[i]][j]); 
+					std::cout << static_cast<char>(disk_space[inode_table[inode_index].index_block[i]][j]); //wyswitlamy zawartosc
 				}
 			}
 		}
@@ -838,6 +515,7 @@ const void file_system::display_file(std::string file_name)
 	{
 		std::cout << "File " << file_name << " doesn't exists " << std::endl;
 	}
+<<<<<<< HEAD
 }
 const void file_system::display_file_v2(std::string file_name)
 {
@@ -893,6 +571,9 @@ const void file_system::display_part_of_file(std::string file_name, int start_po
 	delete[] buffer;
 
 }
+=======
+} 
+>>>>>>> parent of 537c5ed... FIleSystem Merge
 
 //Synchronizacja, Jan Witczak
 void file_system::open_file(std::string file_name_)

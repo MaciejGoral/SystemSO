@@ -38,6 +38,7 @@ std::unique_ptr<AssembleCommandInterface> AssemblerCommandFactory::addCommand(st
 	if (commandName == "ONR") { return std::make_unique<command::ConsoleWriteNumber>(); }
 	if (commandName == "MOT") { return std::make_unique<command::ConsoleWriteWords>(); }
 	if (commandName == "END") { return std::make_unique<command::End>(); }
+	if (commandName == "CLK") { return std::make_unique<command::Click>(); }
 
 	return nullptr;
 }

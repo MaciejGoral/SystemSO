@@ -21,4 +21,8 @@ public:
 	public:
 		virtual char doCommand(std::shared_ptr<PCB>& pcb, char startArgs = 0);
 	};
+	class Click : public AssemblerTranslator {
+	public:
+		virtual char doCommand(std::shared_ptr<PCB>& pcb, char startArgs = 0);
+	};
 }

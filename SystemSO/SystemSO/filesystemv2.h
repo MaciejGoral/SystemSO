@@ -66,6 +66,7 @@ public:
 	std::string return_file_as_string(std::string file_name);
 	const void display_part_of_file(std::string file_name,int start_pos, int nr_of_characters); //zwraca zadana liczbe znakow od pozycji poczatkowej
 
+
 	//Synhronizacja, Jan Witczak
 	void open_file(std::string file_name_);
 	void close_file(std::string file_name_);

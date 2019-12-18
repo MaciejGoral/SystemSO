@@ -932,6 +932,7 @@ void file_system::close_file_reading(std::string file_name_)
 	{
 		inode_table[inode_index].Read_Count--;
 		if (inode_table[inode_index].Read_Count == 0) inode_table[inode_index].File_Mutex.signal();
+
 	}
 }
 //Synchronizacja.

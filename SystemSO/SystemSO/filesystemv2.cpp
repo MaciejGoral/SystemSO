@@ -893,7 +893,6 @@ const void file_system::display_part_of_file(std::string file_name, int start_po
 	delete[] buffer;
 
 }
-} 
 
 //Synchronizacja, Jan Witczak
 void file_system::open_file(std::string file_name_)

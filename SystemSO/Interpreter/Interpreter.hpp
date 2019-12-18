@@ -1,6 +1,6 @@
 #pragma once
 #include<map>
-#include"PCB.hpp"
+#include "..\SystemSO\Process.hpp"
 #include"CommandScript/AssemblerCommandFactory.hpp"
 
 class Interpreter

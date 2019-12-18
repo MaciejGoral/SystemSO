@@ -24,19 +24,22 @@ private:
 	int PID;
 	std::string processName;
 	std::string fileName;
-	int staticPriority;
-	int dynamicPriority;
+	
 	int processCounter;
 	char AX, BX, CX, DX, Flag;
+
 
 	//static int processCounter;
 public:
 	processState state;
 	int instructionPointer;
 	file_system files;
-	int whenStartWaiting, whenStartRunning;
-	int static_process_priorety, dynamic_process_priorety;
+
+	int staticPriority;
+	int dynamicPriority;
 	int average_sleep_time;
+	int whenStartWaiting, whenStartRunning;
+	int time_slice;
 
 	
 	

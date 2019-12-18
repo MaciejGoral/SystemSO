@@ -15,11 +15,14 @@ ProcessManager::ProcessManager()
 
 void ProcessManager::createInitProcess()
 {
-	PCB* newProcess = new PCB("init","init", 139);
+	PCB* newProcess = new PCB("init","init", 140);
 	newProcess->parent = nullptr;
 	allProcesses.push_back(newProcess);
 	readyProcesses.push_back(newProcess);
 	runningProcess = newProcess;
+
+//	O1Scheduler::add_new_process_to_expired(newProcess);
+//	newProcess->whenStartWaiting = Interpreter::allInstructions;
 }
 
 
@@ -31,6 +34,8 @@ void ProcessManager::createProcess(std::string processName, std::string fileName
 	allProcesses.push_back(newProcess);
 	readyProcesses.push_back(newProcess);
 	runningProcess = newProcess;
+
+	
 }
 
 

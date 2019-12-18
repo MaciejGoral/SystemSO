@@ -22,6 +22,12 @@ inode disk_drive::initialize_inode(std::string file_name) //tworzymy iwezel o da
 	initialized.second_data_block = nullptr;
 	initialized.first_data_block_index = -1; //-1 oznacza i¿ bloki na nic nie wskazuja
 	initialized.second_data_block_index = -1;//-1 oznacza i¿ bloki na nic nie wskazuja
+
+	//Synchronizacja, Jan Witczak
+	initialized.File_Mutex = Semaphore(1);
+	initialized.Read_Count = 0;
+	initialized.writing = false;
+	//Synchronizacja.
 	return initialized;
 }
 const int disk_drive::search_inode(std::string file_name)
@@ -510,3 +516,45 @@ const void file_system::display_file(std::string file_name)
 		std::cout << "File " << file_name << " doesn't exists " << std::endl;
 	}
 } 
+
+//Synchronizacja, Jan Witczak
+void file_system::open_file(std::string file_name_)
+{
+	int inode_index = search_inode(file_name_);
+	if (inode_index != -1)
+	{
+		inode_table[inode_index].File_Mutex.wait(true);
+		inode_table[inode_index].writing = true;
+	}
+}
+
+void file_system::close_file(std::string file_name_)
+{
+	int inode_index = search_inode(file_name_);
+	if (inode_index != -1)
+	{
+		inode_table[inode_index].File_Mutex.signal();
+		inode_table[inode_index].writing = false;
+	}
+}
+
+void file_system::open_file_reading(std::string file_name_)
+{
+	int inode_index = search_inode(file_name_);
+	if (inode_index != -1)
+	{
+		inode_table[inode_index].Read_Count++;
+		if (inode_table[inode_index].Read_Count == 1 || inode_table[inode_index].writing) inode_table[inode_index].File_Mutex.wait(false);
+	}
+}
+
+void file_system::close_file_reading(std::string file_name_)
+{
+	int inode_index = search_inode(file_name_);
+	if (inode_index != -1)
+	{
+		inode_table[inode_index].Read_Count--;
+		if (inode_table[inode_index].Read_Count == 0) inode_table[inode_index].File_Mutex.signal();
+	}
+}
+//Synchronizacja.

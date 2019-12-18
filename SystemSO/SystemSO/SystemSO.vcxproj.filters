@@ -42,9 +42,6 @@
     <ClInclude Include="ProcessManager.hpp">
       <Filter>Zarzadzanie procesami</Filter>
     </ClInclude>
-    <ClInclude Include="Process.hpp">
-      <Filter>Zarzadzanie procesami</Filter>
-    </ClInclude>
     <ClInclude Include="Page.h">
       <Filter>Memory</Filter>
     </ClInclude>
@@ -53,6 +50,9 @@
     </ClInclude>
     <ClInclude Include="O1Scheduler.h">
       <Filter>O1</Filter>
+    </ClInclude>
+    <ClInclude Include="Process.hpp">
+      <Filter>Zarzadzanie procesami</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

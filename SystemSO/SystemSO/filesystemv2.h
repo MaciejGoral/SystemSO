@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "Semaphore.h"
 #define SIZE_OF_BLOCK 32 //w bajtach
 #define SIZE_OF_DISK 1024
 
@@ -14,6 +15,12 @@ struct inode
 	int occupied_blocks_size; //liczba blokow w ktorych znajduja sie dane pliku
 	int first_data_block_index;  //indeks bloku wskaznikowego
 	int second_data_block_index;  //indeks bloku wskaznikowego
+
+	//Synhronizacja, Jan Witczak
+	Semaphore File_Mutex;
+	int Read_Count;
+	bool writing;
+	//Synchronizacja.
 };
 class disk_drive
 {
@@ -49,4 +56,12 @@ public:
 	void free_up_block_for_index(int block);//czysci blok, przeznaczony do zastosowania z blokami indeksowymi
 	void free_up_block_for_pointer(std::vector<char>* pointer, int pointer_block_index);//czysci blok, przeznaczony do zastosowania z blokami wskaznikowymi
 	const void display_file(std::string file_name); 
+
+	//Synhronizacja, Jan Witczak
+	void open_file(std::string file_name_);
+	void close_file(std::string file_name_);
+
+	void open_file_reading(std::string file_name_);
+	void close_file_reading(std::string file_name_);
+	//Synchronizacja.
 };

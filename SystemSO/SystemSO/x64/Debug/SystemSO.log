@@ -1,2 +1,23 @@
-﻿  Process.cpp
-  SystemSO.vcxproj -> C:\Users\wrobel604\source\repos\SystemSO\SystemSO\x64\Debug\SystemSO.exe
+﻿  filesystemv2.cpp
+C:\Users\Maciej\Desktop\system\SystemSO\SystemSO\SystemSO\filesystemv2.cpp(40,20): warning C4244: "inicjowanie": konwersja z "float" do "int", możliwa utrata danych
+C:\Users\Maciej\Desktop\system\SystemSO\SystemSO\SystemSO\filesystemv2.cpp(52,20): warning C4244: "inicjowanie": konwersja z "float" do "int", możliwa utrata danych
+C:\Users\Maciej\Desktop\system\SystemSO\SystemSO\SystemSO\filesystemv2.cpp(202,57): warning C4267: "+=": konwersja z "size_t" do "int", możliwa utrata danych
+C:\Users\Maciej\Desktop\system\SystemSO\SystemSO\SystemSO\filesystemv2.cpp(215,57): warning C4267: "+=": konwersja z "size_t" do "int", możliwa utrata danych
+C:\Users\Maciej\Desktop\system\SystemSO\SystemSO\SystemSO\filesystemv2.cpp(227,57): warning C4267: "+=": konwersja z "size_t" do "int", możliwa utrata danych
+C:\Users\Maciej\Desktop\system\SystemSO\SystemSO\SystemSO\filesystemv2.cpp(251,57): warning C4267: "+=": konwersja z "size_t" do "int", możliwa utrata danych
+C:\Users\Maciej\Desktop\system\SystemSO\SystemSO\SystemSO\filesystemv2.cpp(269,57): warning C4267: "+=": konwersja z "size_t" do "int", możliwa utrata danych
+C:\Users\Maciej\Desktop\system\SystemSO\SystemSO\SystemSO\filesystemv2.cpp(285,57): warning C4267: "+=": konwersja z "size_t" do "int", możliwa utrata danych
+C:\Users\Maciej\Desktop\system\SystemSO\SystemSO\SystemSO\filesystemv2.cpp(290,58): warning C4244: "argument": konwersja z "float" do "int", możliwa utrata danych
+C:\Users\Maciej\Desktop\system\SystemSO\SystemSO\SystemSO\filesystemv2.cpp(318,56): warning C4267: "+=": konwersja z "size_t" do "int", możliwa utrata danych
+C:\Users\Maciej\Desktop\system\SystemSO\SystemSO\SystemSO\filesystemv2.cpp(339,56): warning C4267: "+=": konwersja z "size_t" do "int", możliwa utrata danych
+C:\Users\Maciej\Desktop\system\SystemSO\SystemSO\SystemSO\filesystemv2.cpp(357,57): warning C4267: "+=": konwersja z "size_t" do "int", możliwa utrata danych
+  Process.cpp
+  ProcessManager.cpp
+  Semaphore.cpp
+  Shell.cpp
+  Source.cpp
+  Generowanie kodu...
+C:\Users\Maciej\Desktop\system\SystemSO\SystemSO\SystemSO\ProcessManager.cpp(142): warning C4715: "ProcessManager::findProcess”: niewszystkie ścieżki kodu zwracają wartość
+C:\Users\Maciej\Desktop\system\SystemSO\SystemSO\SystemSO\filesystemv2.cpp(72): warning C4715: "disk_drive::search_free_block”: niewszystkie ścieżki kodu zwracają wartość
+  LINK : nie znaleziono elementu C:\Users\Maciej\Desktop\system\SystemSO\SystemSO\x64\Debug\SystemSO.exe ani nie został on skompilowany podczas ostatniego konsolidowania przyrostowego; zostanie wykonana pełna konsolidacja
+  SystemSO.vcxproj -> C:\Users\Maciej\Desktop\system\SystemSO\SystemSO\x64\Debug\SystemSO.exe

@@ -6,6 +6,7 @@
 //int PCB::processCounter = 0;
 extern int pidCounter;
 
+
 PCB::PCB() {
 	AX = BX = CX = DX = Flag = instructionPointer = 0;
 	//this->PID = ++processCounter;

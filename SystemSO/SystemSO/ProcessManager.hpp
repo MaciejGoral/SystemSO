@@ -3,6 +3,8 @@
 #include <list>
 #include <string>
 #include "Process.hpp"
+#include "..\Interpreter\Interpreter.hpp"
+#include "O1Scheduler.h"
 
 
 
@@ -13,6 +15,8 @@ public:
 	std::list<PCB*> readyProcesses;
 	std::list<PCB*> waitingProcesses;
 	ProcessManager();
+
+	O1Scheduler scheduler1;
 
 	void createProcess(std::string processName, std::string fileName, int staticPriority);
 	void createInitProcess();

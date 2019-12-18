@@ -8,6 +8,7 @@
 #include <vector>
 #include <string>
 #include"filesystemv2.h"
+#include"O1Scheduler.h"
 
 #define ArraySize 32 //tymczasowy ram
 
@@ -24,16 +25,26 @@ private:
 	int PID;
 	std::string processName;
 	std::string fileName;
-	int staticPriority;
-	int dynamicPriority;
+	
 	int processCounter;
 	char AX, BX, CX, DX, Flag;
+
 
 	//static int processCounter;
 public:
 	processState state;
 	int instructionPointer;
 	file_system files;
+
+	
+//	O1Scheduler scheduler;
+	int staticPriority;
+	int dynamicPriority;
+	int average_sleep_time;
+	int whenStartWaiting, whenStartRunning;
+	int time_slice;
+
+	
 	
 	PCB();
 	PCB(std::string processName, std::string fileName, int staticPriority);

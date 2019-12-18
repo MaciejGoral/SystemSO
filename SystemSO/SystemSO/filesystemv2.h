@@ -8,9 +8,9 @@
 struct inode
 {
 	std::string file_name;
-	std::vector<char>* first_data_block; 
+	std::vector<char>* first_data_block;
 	std::vector<char>* second_data_block;
-	std::vector<int> index_block; 
+	std::vector<int> index_block;
 	int file_size;
 	int occupied_blocks_size;
 	int first_data_block_index;
@@ -26,15 +26,15 @@ class disk_drive
 {
 	friend class file_system;
 public:
-	const void print_drive(); 
+	const void print_drive();
 	const void print_inode_catalogue();
 	const void display_occupied_blocks(std::string file_name);
 	const void display_all_information_about_all_files();
-	const int search_inode(std::string file_name); 
+	const int search_inode(std::string file_name);
 	const unsigned int search_free_block();
-	const std::vector<int> search_free_blocks(int number_of_searched_blocks); 
+	const std::vector<int> search_free_blocks(int number_of_searched_blocks);
 	const bool is_enough_size(std::string data);
-	const bool is_enough_size(std::string data, int old_file_size); 
+	const bool is_enough_size(std::string data, int old_file_size);
 protected:
 	disk_drive();
 	int number_of_blocks;
@@ -64,15 +64,16 @@ public:
 	const void display_file(std::string file_name);
 	const void display_file_v2(std::string file_name); //wyswietlamy zapisane w pliku
 	std::string return_file_as_string(std::string file_name);
-	const void display_part_of_file(std::string file_name,int start_pos, int nr_of_characters); //zwraca zadana liczbe znakow od pozycji poczatkowej
+	const void display_part_of_file(std::string file_name, int start_pos, int nr_of_characters); //zwraca zadana liczbe znakow od pozycji poczatkowej
 	std::string read_part_of_file(std::string file_name, int start_pos, int nr_of_characters); //zwraca zadana liczbe znakow od pozycji poczatkowej
 	char return_single_char(std::string file_name, int start_pos);
-																							   
-																							   //Synhronizacja, Jan Witczak
+	void add_in_data_to_file_overwrite(std::string file_name, std::string data); //uzywane do nadpisywania, jak v2 tylko ot wiera plik z ios::trunc
+
+	//Synhronizacja,  Jan Witczak
 	void open_file(std::string file_name_);
 	void close_file(std::string file_name_);
 
 	void open_file_reading(std::string file_name_);
 	void close_file_reading(std::string file_name_);
-	//Synchronizacja.
+	//Synchronizacja. 
 };

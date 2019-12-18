@@ -77,6 +77,7 @@ void O1Scheduler::creating_bitmap(std::shared_ptr<ProcessTable>table) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 int O1Scheduler::time_slice_calculation(int some_priority) {
 	int time_slice;
 	if (some_priority >= 100 && some_priority < 120) {
@@ -92,16 +93,24 @@ int O1Scheduler::time_slice_calculation(int some_priority) {
 
 >>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
 int O1Scheduler::time_slice_calculation(const std::shared_ptr<PCB>& giving_process) {
+=======
+int O1Scheduler::time_slice_calculation(int some_priority) {
+>>>>>>> parent of e1b1b34... ło
 	int time_slice;
-	if (giving_process->dynamic_priority>= 100 && giving_process->dynamic_priority < 120) {
-		time_slice = (140 - giving_process->dynamic_priority) * 4;
+	if (some_priority >= 100 && some_priority < 120) {
+		time_slice = (140 - some_priority) * 20;
 	}
+<<<<<<< HEAD
 	else if (giving_process->dynamic_priority >= 120 && giving_process->dynamic_priority < 140) {
 		time_slice = (140 - giving_process->dynamic_priority) * 1;
 <<<<<<< HEAD
 >>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
 =======
 >>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
+=======
+	else if (some_priority >= 120 && some_priority < 140) {
+		time_slice = (140 - some_priority) * 5;
+>>>>>>> parent of e1b1b34... ło
 	}
 	return time_slice;
 }
@@ -114,10 +123,14 @@ void O1Scheduler::move_process_to_expired_table(int new_dynamic_priority, std::s
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of e1b1b34... ło
 int O1Scheduler::calculating_dynamic_priority(int bonus,std::shared_ptr<PCB>& pcb) {
 	int dynamic_priority;
 	dynamic_priority = std::max(100, (std::min(pcb->static_process_priority - bonus + 5, 139)));
 	return dynamic_priority;
+<<<<<<< HEAD
 }
 
 int O1Scheduler::calculating_bonus(std::shared_ptr<PCB>giving_process) {
@@ -138,6 +151,12 @@ void O1Scheduler::calculating_dynamic_priority(int bonus,std::shared_ptr<PCB>& p
 int O1Scheduler::calculating_bonus(const std::shared_ptr<PCB>&giving_process) {
 	if (giving_process->average_sleep_time >= 0 && giving_process->average_sleep_time < 20) {
 >>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
+=======
+}
+
+int O1Scheduler::calculating_bonus(std::shared_ptr<PCB>giving_process) {
+	if (giving_process->average_sleep_time >= 0 && giving_process->average_sleep_time < 100) {
+>>>>>>> parent of e1b1b34... ło
 		return 0;
 	}
 	else if (average_sleep_time >= 100 && average_sleep_time < 200) {

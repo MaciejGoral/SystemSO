@@ -34,6 +34,7 @@ public:
 	int DEFAULT_PRIORITY = 120;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	PCB* pcb;
 =======
 	std::shared_ptr<PCB>pcb;
@@ -41,6 +42,9 @@ public:
 =======
 	std::shared_ptr<PCB>pcb;
 >>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
+=======
+	PCB* pcb;
+>>>>>>> parent of e1b1b34... Å‚o
 
 	std::array<bool, 140>bitmapa;
 	std::array<PriorityVector, 140>active_array;
@@ -73,6 +77,7 @@ public:
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	int time_slice_calculation(int some_priority);
 
 	void move_process_to_expired_table(int new_dynamic_priority, std::shared_ptr<PCB>& pcb);				//przeniesienie procesu up³yniêciu przeznaczonego mu kwantu czasu
@@ -95,15 +100,27 @@ public:
 
 >>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
 	void calculating_dynamic_priority(int bonus, std::shared_ptr<PCB>& pcb);						//obliczenie nowego priorytetu
+=======
+	int time_slice_calculation(int some_priority);
 
-	int calculating_bonus(const std::shared_ptr<PCB>&giving_process);				//obliczenie bonusu
+	void move_process_to_expired_table(int new_dynamic_priority, std::shared_ptr<PCB>& pcb);				//przeniesienie procesu up³yniêciu przeznaczonego mu kwantu czasu
 
+	int calculating_dynamic_priority(int bonus, std::shared_ptr<PCB>& pcb);						//obliczenie nowego priorytetu
+>>>>>>> parent of e1b1b34... Å‚o
+
+	int calculating_bonus(int average_sleep_time);				//obliczenie bonusu
+
+<<<<<<< HEAD
 //	void RunProcess();
 //	void RunProcess(int);
 <<<<<<< HEAD
 >>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
 =======
 >>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
+=======
+	void RunProcess();
+	void RunProcess(int);
+>>>>>>> parent of e1b1b34... Å‚o
 };
 
 

@@ -4,12 +4,15 @@
 #include <string>
 #include "Process.hpp"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 #include "..\Interpreter\Interpreter.hpp"
 <<<<<<< HEAD
 >>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
 =======
 >>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
+=======
+>>>>>>> parent of e1b1b34... ło
 
 
 

@@ -37,6 +37,7 @@ public:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 	int staticPriority;
@@ -52,6 +53,8 @@ public:
 
 	
 >>>>>>> parent of 3efabb1... elele
+=======
+>>>>>>> parent of e1b1b34... ło
 	
 	PCB();
 	PCB(std::string processName, std::string fileName, int staticPriority);

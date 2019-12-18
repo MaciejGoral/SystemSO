@@ -9,6 +9,9 @@ extern int pidCounter;
 =======
 int PCB::processCounter = 0;
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of e1b1b34... ło
+=======
 >>>>>>> parent of e1b1b34... ło
 =======
 >>>>>>> parent of e1b1b34... ło

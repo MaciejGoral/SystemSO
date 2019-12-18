@@ -32,10 +32,13 @@ void ProcessManager::createProcess(std::string processName, std::string fileName
 	readyProcesses.push_back(newProcess);
 	runningProcess = newProcess;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 	
 >>>>>>> parent of 3efabb1... elele
+=======
+>>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
 }
 
 

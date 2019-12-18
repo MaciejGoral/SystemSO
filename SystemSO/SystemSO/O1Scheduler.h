@@ -32,7 +32,11 @@ public:
 
 	int instructions_in_one_era;
 	int DEFAULT_PRIORITY = 120;
+<<<<<<< HEAD
 	PCB* pcb;
+=======
+	std::shared_ptr<PCB>pcb;
+>>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
 
 	std::array<bool, 140>bitmapa;
 	std::array<PriorityVector, 140>active_array;
@@ -46,15 +50,20 @@ public:
 	void change_era_function();					//zamiana tablic w momencie, w którym tablica zadañ aktywnych jest pusta
 		
 <<<<<<< HEAD
+<<<<<<< HEAD
 	void add_new_process_to_expired(std::shared_ptr<PCB>giving_process);
 =======
 	void add_new_process_to_expired(const std::shared_ptr<PCB>&giving_process);
 >>>>>>> parent of 3efabb1... elele
+=======
+	void add_new_process_to_expired(std::shared_ptr<PCB>giving_process);
+>>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
 
 	void creating_bitmap(std::shared_ptr<ProcessTable>table);
 
 	int number_of_first_biggest_priority_in_bitmap();
 
+<<<<<<< HEAD
 	int time_slice_calculation(int some_priority);
 
 	void move_process_to_expired_table(int new_dynamic_priority, std::shared_ptr<PCB>& pcb);				//przeniesienie procesu up³yniêciu przeznaczonego mu kwantu czasu
@@ -65,6 +74,18 @@ public:
 
 	void RunProcess();
 	void RunProcess(int);
+=======
+	int time_slice_calculation(const std::shared_ptr<PCB>& giving_process);
+
+	void move_process_to_expired_table(int new_dynamic_priority, std::shared_ptr<PCB>& pcb);				//przeniesienie procesu up³yniêciu przeznaczonego mu kwantu czasu
+
+	void calculating_dynamic_priority(int bonus, std::shared_ptr<PCB>& pcb);						//obliczenie nowego priorytetu
+
+	int calculating_bonus(const std::shared_ptr<PCB>&giving_process);				//obliczenie bonusu
+
+//	void RunProcess();
+//	void RunProcess(int);
+>>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
 };
 
 

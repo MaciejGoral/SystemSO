@@ -2,10 +2,13 @@
 #include<map>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 #include "CommandScript/AssemblerCommandFactory.hpp"
 =======
 =======
 >>>>>>> parent of e1b1b34... ło
+=======
+>>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
 #include"PCB.hpp"
 #include"CommandScript/AssemblerCommandFactory.hpp"
 >>>>>>> parent of e1b1b34... ło

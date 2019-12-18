@@ -3,6 +3,10 @@
 #include <list>
 #include <string>
 #include "Process.hpp"
+<<<<<<< HEAD
+=======
+#include "..\Interpreter\Interpreter.hpp"
+>>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
 
 
 

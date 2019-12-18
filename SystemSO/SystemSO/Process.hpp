@@ -35,13 +35,17 @@ public:
 	int instructionPointer;
 	file_system files;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 	int staticPriority;
 	int dynamicPriority;
 	int average_sleep_time;
+=======
+>>>>>>> parent of 879d2e6... dodatkowe funkcje w swoim module plus zmienne w pcb
 	int whenStartWaiting, whenStartRunning;
-	int time_slice;
+	int static_process_priorety, dynamic_process_priorety;
+	int average_sleep_time;
 
 	
 >>>>>>> parent of 3efabb1... elele
